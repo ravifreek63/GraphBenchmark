@@ -92,7 +92,7 @@ public class Graph {
 		vertices[currentIndex] = source;
 		parent[source] = source;
 		
-		while(true){
+		while(currentIndex < NUM_NODES){
 			currentNode = vertices[currentIndex];
 			currentIndex++;
 			if(currentNode == NULL_NODE)
