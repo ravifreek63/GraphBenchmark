@@ -42,9 +42,6 @@ public class Graph {
 	
 	public void createEdgeBetween(int from, int to){
 		_graphNodes[from].add(to); // adding an edge to the from node to the to node
-		if(from == 0){
-			System.out.println("Yes Zero Is Present.");
-		}
 	}
 	
 	public void createRelationships(){
