@@ -10,7 +10,14 @@ public class Graph {
 	private static final int NULL_NODE = -1;
 	private Node[]_nodes;
 	
-	public Node getRoot() { return _root; }
+	public Node getRoot() { 
+		int nodeId = 0;
+		while(true){
+			if(_nodes[nodeId] != null && _nodes[nodeId].getEdgeList().size() > 2){
+				return _nodes[nodeId];
+			}
+		}
+	}
 	
 	public Node find(int searchNodeId){
 		ArrayList<Node> childrenList;
@@ -85,13 +92,17 @@ public class Graph {
 		BRANCH_FACTOR = factor;	
 	}
 	
+	public void generateGraph(){
+		
+	}
+	
 	public void generateNodes(){
 		NUM_NODES = getNumNodes();
 		_nodes = new Node[NUM_NODES];		
 		for (int count = 0; count < NUM_NODES; count++){
 			_nodes[count] = new Node(count);
 		}
-		_root = _nodes[0];
+		_root = getRoot();
 	}
 	
 	public void createEdgeBetween(int from, int to){
