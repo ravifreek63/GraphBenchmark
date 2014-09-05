@@ -2,13 +2,57 @@ import java.util.*;
 import java.io.*;
 
 public class Graph {
-	
+	private Node _root;
 	private static String DATA_PATH = "";
 	private int NUM_NODES;
 	private int SCALE ; 
 	private int BRANCH_FACTOR;
 	private static final int NULL_NODE = -1;
-	private Node[] _nodes;
+	private Node[]_nodes;
+	
+	public Node getRoot() { return _root; }
+	
+	public Node find(int searchNodeId){
+		ArrayList<Node> childrenList;
+		ArrayList<Node> list1 = new ArrayList<Node>();
+		ArrayList<Node> list2 = new ArrayList<Node>();
+		boolean[] seenNode = new boolean[NUM_NODES];
+		Node childNode;	
+		list1.add(_root);		
+		// Iterate over list1 and add children to list2
+		while(true){
+			list2 = new ArrayList<Node>();
+			for(Node currentNode:  list1){				
+				childrenList = currentNode.getEdgeList();
+				for (Node child : childrenList){
+					if(!seenNode[child.getNodeId()]){
+						list2.add(child);
+						seenNode[child.getNodeId()] = true;
+				} 
+			}
+				childNode = currentNode.getChildIfExists(searchNodeId);
+				if(childNode != null)
+					return childNode;
+			}
+			list1 = new ArrayList<Node>();
+			for(Node currentNode: list2){				
+				childrenList = currentNode.getEdgeList();
+				for (Node child : childrenList){
+					if(!seenNode[child.getNodeId()]){
+						list1.add(child);
+						seenNode[child.getNodeId()] = true;
+				} 
+			}
+				childNode = currentNode.getChildIfExists(searchNodeId);
+				if(childNode != null)
+					return childNode;
+			}
+			if((list1.size() == 0 && list2.size() == 0)){
+				break;
+			}
+		}
+		return null;
+	}
 	
 	public int getNumberEdges(int nodeId){
 		return (_nodes[nodeId].getEdgeList().size());
@@ -37,6 +81,7 @@ public class Graph {
 		for (int count = 0; count < NUM_NODES; count++){
 			_nodes[count] = new Node(count);
 		}
+		_root = _nodes[0];
 	}
 	
 	public void createEdgeBetween(int from, int to){
@@ -78,31 +123,31 @@ public class Graph {
 	public int[] search(int source, int destination){
 		int[] parent = new int[NUM_NODES];
 		ArrayList<Node> childrenList;
-		int[] vertices = new int[NUM_NODES];
+		Node[] vertices = new Node[NUM_NODES];
 		int currentIndex = 0, addIndex = 0, nodeId;
 		
 		int count;
-		Integer currentNode;
+		Node currentNode;
 		for (count = 0; count < NUM_NODES; count++){
 			parent[count] = NULL_NODE;
-			vertices[currentIndex] = NULL_NODE;
+			vertices[currentIndex] = new Node(NULL_NODE);
 		}
 		
-		vertices[addIndex] = source;
+		vertices[addIndex] = _nodes[source];
 		parent[source] = source;
 		
 		while(currentIndex < NUM_NODES){
 			currentNode = vertices[currentIndex];
 			currentIndex++;
-			if(currentNode == NULL_NODE)
+			if(currentNode.getNodeId() == NULL_NODE)
 				break;
-			childrenList = _nodes[(int)currentNode].getEdgeList();
+			childrenList = currentNode.getEdgeList();
 			for (Node child : childrenList){
 				nodeId = child.getNodeId();
 				if(parent[nodeId] == NULL_NODE){
-					parent[nodeId] = currentNode;
+					parent[nodeId] = currentNode.getNodeId();
 					if(addIndex < NUM_NODES){
-						vertices[addIndex] = nodeId;
+						vertices[addIndex] = child;
 						addIndex++;
 					}
 				} 
@@ -111,7 +156,7 @@ public class Graph {
 				break;
 		}
 		System.out.println("Source : " + source + ",Destination : " + destination 
-				+ "Verticies traversed :: " + addIndex);
+				+ ", Verticies traversed :: " + addIndex);
 		return parent;
 	}
 	

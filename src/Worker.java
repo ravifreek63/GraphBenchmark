@@ -10,7 +10,7 @@ public class Worker implements Runnable {
 	private void searchGraph(){
 		System.out.println("Searching Graph For Thread -" + _workerId);
 		for (int count = 0; count < _numberSamplesPerThread; count++){
-			_graph.search(0, _samples[count]);
+			_graph.find(_samples[count]);
 		}
 	}
 	
@@ -23,7 +23,7 @@ public class Worker implements Runnable {
 		for (int count = 0; count < _numberSamplesPerThread; count++){
 			do{
 				sample = random.nextInt(numberNodes);
-			} while(_graph.getNumberEdges(sample) == 0);
+			} while(_graph.getNumberEdges(sample) == 0 && sample != _graph.getRoot().getNodeId());
 			_samples[count] = sample;
 		}
 	}
