@@ -1,8 +1,12 @@
 
 public class Benchmark {
-	private Graph _graph;
+	private static Graph _graph;
 	private static int _numberThreads;
 	private static int _numberSamplesPerThread;
+	
+	public Graph getGraph(){
+		return _graph;
+	}
 	
 	public void createGraph(String scale, String branchFactor){
 		_graph = new Graph(scale, branchFactor);
@@ -29,8 +33,11 @@ public class Benchmark {
 				System.out.print(e.toString());
 			}
 		}	
+
+		// Starting Worker Threads 
 		for(int count = 0; count < _numberThreads; count++){
-			Worker worker = new Worker(_numberSamplesPerThread);
+			Worker worker = new Worker(_graph, _numberSamplesPerThread);
+			worker.start(count);
 		}
 	}
 }
