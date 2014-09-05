@@ -76,7 +76,7 @@ public class Graph {
 	}
 	
 	public int[] search(int source, int destination){
-		System.out.println("Source:" + source + "Destination:" + destination);
+		System.out.println("Source : " + source + ",Destination : " + destination);
 		int[] parent = new int[NUM_NODES];
 		ArrayList<Integer> childrenList = new ArrayList<Integer>();
 		ArrayList<Integer> vertexList = new ArrayList<Integer>();
@@ -98,13 +98,13 @@ public class Graph {
 			for (Integer child : childrenList){
 				if(parent[child] == NULL_NODE){
 					parent[child] = currentNode;
-					iterator.add(child);
+					vertexList.add(child);
 				} 
 			}
 			if (childrenList.contains(destination))
 				break;
 		}
-		System.out.println("Verticies traversed" + vertexList.size());
+		System.out.println("Verticies traversed :: " + vertexList.size());
 		return parent;
 	}
 	
