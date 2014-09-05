@@ -10,12 +10,16 @@ public class Graph {
 	private int BRANCH_FACTOR;
 	private static final int NULL_NODE = -1;
 	
+	public int getNumberEdges(int nodeId){
+		return (_graphNodes[nodeId].size());
+	}
+	
 	public void setDataPath(){
 		DATA_PATH = "/home/tandon/data/toy_" + Integer.toString(SCALE) + "_" + 
 				Integer.toString(BRANCH_FACTOR) + ".txt";
 	}
 	
-	private int getNumNodes(){
+	public int getNumNodes(){
 		return (int)Math.pow ( 2, SCALE);
 	}
 	
