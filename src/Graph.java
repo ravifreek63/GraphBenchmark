@@ -111,6 +111,9 @@ public class Graph {
 	}
 	
 	public void createRelationships(){
+		long numberOfRelationships = getNumNodes() * BRANCH_FACTOR;
+		long count = 0;
+		double frac = 0.1;
 		BufferedReader br = null; 
 		try {
 		    File file = new File(DATA_PATH);
@@ -123,6 +126,11 @@ public class Graph {
 		        to = Integer.parseInt(parts[2]);
 		        if(from != to)
 		        	createEdgeBetween(from, to);
+		        count++;
+		        if((double)count/numberOfRelationships  >= frac){
+		        	System.out.println("frac : " + frac + " read.");
+		        	frac += 0.1;
+		        }
 		   }
 		} catch(IOException e){
 		  e.printStackTrace();
@@ -188,8 +196,12 @@ public class Graph {
 				setScale(_scale);
 				setBranchFactor(_branchFactor);
 				setDataPath();
+				System.out.println("Generating Nodes.");
 				generateNodes();
+				System.out.println("Generating Nodes Done.");
+				System.out.println("Creating Relationships.");
 				createRelationships();
+				System.out.println("Creating Relationships Done.");
 				_root = getRoot();
 			} catch (NumberFormatException e){
 				System.out.print(e.toString());
