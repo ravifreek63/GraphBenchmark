@@ -38,6 +38,7 @@ public class Benchmark {
 		}	
 
 		// Starting Worker Threads 
+		System.out.println("Starting Threads ..... ");
 		long lStartTime = System.nanoTime();
 		ExecutorService executor = Executors.newFixedThreadPool(_numberThreads); 
 		for(int count = 0; count < _numberThreads; count++){
@@ -48,6 +49,6 @@ public class Benchmark {
 		while(!executor.isTerminated());
 		long lEndTime = System.nanoTime();
 		long difference = lEndTime - lStartTime;
-		System.out.println("Total time taken in milliseconds : " + difference);
+		System.out.println("Total time taken in seconds : " + (double)difference/Math.pow(10,9));
 	}
 }
