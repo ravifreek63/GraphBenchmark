@@ -16,6 +16,7 @@ public class Graph {
 			if(_nodes[nodeId] != null && _nodes[nodeId].getEdgeList().size() > 2){
 				return _nodes[nodeId];
 			}
+			nodeId++;
 		}
 	}
 	
