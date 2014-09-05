@@ -32,15 +32,13 @@ public class Worker implements Runnable {
 	@Override
 	public void run() {
 		System.out.println("Running Thread -" + Integer.toString(_workerId));
-		for (int count = 0; count < _numberSamplesPerThread; count++)
-			_graph.search(0, _samples[count]);
+		  generateSamples();
+		  searchGraph();
 	}
 	
 	 
 	 public void start (int workerId)
 	   {
-		  generateSamples();
-		  searchGraph();
 	      System.out.println("Starting Thread -" + Integer.toString(workerId));
 	      if (_thread == null)
 	      {
