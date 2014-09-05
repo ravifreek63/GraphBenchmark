@@ -1,7 +1,6 @@
 import java.util.Random;
 
 public class Worker implements Runnable {
-	private Thread _thread;
 	private Graph _graph;
 	private int _numberSamplesPerThread;
 	private int[] _samples;
@@ -36,25 +35,13 @@ public class Worker implements Runnable {
 	@Override
 	public void run() {
 		System.out.println("Running Thread -" + Integer.toString(_workerId));
-		  generateSamples();
-		  searchGraph();
+		generateSamples();
+		searchGraph();
 	}
 	
-	 
-	 public void start (int workerId)
-	   {
-	      System.out.println("Starting Thread -" + Integer.toString(workerId));
-	      if (_thread == null)
-	      {
-	    	 _thread = new Thread (this, Integer.toString(workerId));
-	    	 _thread.start ();
-	      }
-	      _workerId = workerId;
-	   }
-	
-	public Worker(Graph g, int samples){
+	public Worker(Graph g, int samples, int workerId){
 		_graph = g; 
 		_numberSamplesPerThread = samples;
-
+		_workerId = workerId;
 	}
 }
