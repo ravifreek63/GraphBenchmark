@@ -1,6 +1,5 @@
 import java.util.Random;
 
-
 public class Worker implements Runnable {
 	private Thread _thread;
 	private Graph _graph;

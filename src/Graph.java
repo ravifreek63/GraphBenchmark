@@ -79,9 +79,8 @@ public class Graph {
 		System.out.println("Source : " + source + ",Destination : " + destination);
 		int[] parent = new int[NUM_NODES];
 		ArrayList<Integer> childrenList = new ArrayList<Integer>();
-		ArrayList<Integer> vertexList = new ArrayList<Integer>();
 		int[] vertices = new int[NUM_NODES];
-		int currentIndex = 0;
+		int currentIndex = 0, addIndex = 0;
 		
 		int count;
 		Integer currentNode;
@@ -89,7 +88,7 @@ public class Graph {
 			parent[count] = NULL_NODE;
 			vertices[currentIndex] = NULL_NODE;
 		}
-		vertices[currentIndex] = source;
+		vertices[addIndex] = source;
 		parent[source] = source;
 		
 		while(currentIndex < NUM_NODES){
@@ -101,14 +100,16 @@ public class Graph {
 			for (Integer child : childrenList){
 				if(parent[child] == NULL_NODE){
 					parent[child] = currentNode;
-					vertices[currentIndex] = child;
-					currentIndex++;
+					if(addIndex < NUM_NODES){
+						vertices[addIndex] = child;
+						addIndex++;
+					}
 				} 
 			}
 			if (childrenList.contains(destination))
 				break;
 		}
-		System.out.println("Verticies traversed :: " + currentIndex);
+		System.out.println("Verticies traversed :: " + addIndex);
 		return parent;
 	}
 	
