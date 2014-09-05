@@ -8,6 +8,7 @@ public class Graph {
 	private ArrayList<Integer>[] _graphNodes;
 	private int SCALE ; 
 	private int BRANCH_FACTOR;
+	private static final int NULL_NODE = -1;
 	
 	public void setDataPath(){
 		DATA_PATH = "/home/tandon/data/toy_" + Integer.toString(SCALE) + "_" + 
@@ -64,8 +65,41 @@ public class Graph {
 		}
 	}
 	
-	public void search(int source, int destination){
+	public ArrayList<Integer> addToVertextList(ArrayList<Integer> childrenList, ArrayList<Integer> vertexList,
+			int[] parent, Integer currentNode){
+
+		return vertexList;
+	}
+	
+	public int[] search(int source, int destination){
+		int[] parent = new int[NUM_NODES];
+		ArrayList<Integer> childrenList = new ArrayList<Integer>();
+		ArrayList<Integer> vertexList = new ArrayList<Integer>();
 		
+		int count;
+		Integer currentNode;
+		for (count = 0; count < NUM_NODES; count++){
+			parent[count] = NULL_NODE;
+		}
+		vertexList.add(source);
+		parent[source] = source;
+		
+		ListIterator<Integer> iterator = vertexList.listIterator();
+		while(iterator.hasNext()){
+			currentNode = iterator.next();
+			if(currentNode == NULL_NODE)
+				break;
+			childrenList = _graphNodes[(int)currentNode];
+			for (Integer child : childrenList){
+				if(parent[child] == NULL_NODE){
+					parent[child] = currentNode;
+					iterator.add(child);
+				} 
+			}
+			if (childrenList.contains(destination))
+				break;
+		}
+		return parent;
 	}
 	
 	public Graph(String scale, String branchFactor){

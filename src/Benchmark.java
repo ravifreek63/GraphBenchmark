@@ -9,7 +9,7 @@ public class Benchmark {
 	
 	public static void main(String[] args){
 		Benchmark benchmark = new Benchmark();
-		benchmark.createGraph(args[0], args[1]);		
+		benchmark.createGraph(args[0], args[1]);	
 	}
 
 }
