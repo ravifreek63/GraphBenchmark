@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class GraphReader {
+public class Graph {
 	
 	private static String DATA_PATH = "";
 	private int NUM_NODES;
@@ -9,8 +9,9 @@ public class GraphReader {
 	private int SCALE ; 
 	private int BRANCH_FACTOR;
 	
-	public void setDataPath(String exponent){
-		DATA_PATH = "/home/tandon/data/toy_" + exponent.toString() + "_" + Integer.toString(SCALE) + ".txt";
+	public void setDataPath(){
+		DATA_PATH = "/home/tandon/data/toy_" + Integer.toString(SCALE) + "_" + 
+				Integer.toString(BRANCH_FACTOR) + ".txt";
 	}
 	
 	private int getNumNodes(){
@@ -48,8 +49,9 @@ public class GraphReader {
 		    while ((thisLine = br.readLine()) != null) {
 		      String[] parts = thisLine.split("\\s+");
 		        from = Integer.parseInt(parts[1]);
-		        to = Integer.parseInt(parts[2]);           
-		        createEdgeBetween(from, to);
+		        to = Integer.parseInt(parts[2]);
+		        if(from != to)
+		        	createEdgeBetween(from, to);
 		   }
 		} catch(IOException e){
 		  e.printStackTrace();
@@ -62,22 +64,22 @@ public class GraphReader {
 		}
 	}
 	
-	public static void main(String[] args){
-		if(args.length < 2){
-			System.out.println("Number of arguments lesser than 2");
-			System.exit(-1);
-		}
-		GraphReader graphReader = new GraphReader();
-		try {
-				graphReader.setScale(Integer.parseInt(args[0]));
-				graphReader.setBranchFactor(Integer.parseInt(args[1]));
-		} catch (NumberFormatException e){
-			System.out.println(e.toString());
-		}	
-		graphReader.setDataPath(args[0]);
-		graphReader.generateNodes();
-		graphReader.createRelationships();
+	public void search(int source, int destination){
+		
 	}
-
+	
+	public Graph(String scale, String branchFactor){
+		try{
+			int _scale = Integer.parseInt(scale);
+			int _branchFactor = Integer.parseInt(branchFactor);
+				setScale(_scale);
+				setBranchFactor(_branchFactor);
+				setDataPath();
+				generateNodes();
+				createRelationships();
+			} catch (NumberFormatException e){
+				System.out.print(e.toString());
+			}
+	}
 }
 
