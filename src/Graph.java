@@ -5,13 +5,13 @@ public class Graph {
 	
 	private static String DATA_PATH = "";
 	private int NUM_NODES;
-	private ArrayList<Integer>[] _graphNodes;
 	private int SCALE ; 
 	private int BRANCH_FACTOR;
 	private static final int NULL_NODE = -1;
+	private Node[] _nodes;
 	
 	public int getNumberEdges(int nodeId){
-		return (_graphNodes[nodeId].size());
+		return (_nodes[nodeId].getEdgeList().size());
 	}
 	
 	public void setDataPath(){
@@ -31,17 +31,17 @@ public class Graph {
 		BRANCH_FACTOR = factor;	
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void generateNodes(){
 		NUM_NODES = getNumNodes();
-		_graphNodes = (ArrayList<Integer>[])new ArrayList[(int) NUM_NODES];
+		_nodes = new Node[NUM_NODES];		
 		for (int count = 0; count < NUM_NODES; count++){
-			_graphNodes[count] = new ArrayList<Integer>();
+			_nodes[count] = new Node(count);
 		}
 	}
 	
 	public void createEdgeBetween(int from, int to){
-		_graphNodes[from].add(to); // adding an edge to the from node to the to node
+		_nodes[from].getEdgeList().add(_nodes[to]);
+		// adding an edge to the from node to the to node
 	}
 	
 	public void createRelationships(){
@@ -76,11 +76,10 @@ public class Graph {
 	}
 	
 	public int[] search(int source, int destination){
-		System.out.println("Source : " + source + ",Destination : " + destination);
 		int[] parent = new int[NUM_NODES];
-		ArrayList<Integer> childrenList = new ArrayList<Integer>();
+		ArrayList<Node> childrenList;
 		int[] vertices = new int[NUM_NODES];
-		int currentIndex = 0, addIndex = 0;
+		int currentIndex = 0, addIndex = 0, nodeId;
 		
 		int count;
 		Integer currentNode;
@@ -88,6 +87,7 @@ public class Graph {
 			parent[count] = NULL_NODE;
 			vertices[currentIndex] = NULL_NODE;
 		}
+		
 		vertices[addIndex] = source;
 		parent[source] = source;
 		
@@ -96,12 +96,13 @@ public class Graph {
 			currentIndex++;
 			if(currentNode == NULL_NODE)
 				break;
-			childrenList = _graphNodes[(int)currentNode];
-			for (Integer child : childrenList){
-				if(parent[child] == NULL_NODE){
-					parent[child] = currentNode;
+			childrenList = _nodes[(int)currentNode].getEdgeList();
+			for (Node child : childrenList){
+				nodeId = child.getNodeId();
+				if(parent[nodeId] == NULL_NODE){
+					parent[nodeId] = currentNode;
 					if(addIndex < NUM_NODES){
-						vertices[addIndex] = child;
+						vertices[addIndex] = nodeId;
 						addIndex++;
 					}
 				} 
@@ -109,7 +110,8 @@ public class Graph {
 			if (childrenList.contains(destination))
 				break;
 		}
-		System.out.println("Verticies traversed :: " + addIndex);
+		System.out.println("Source : " + source + ",Destination : " + destination 
+				+ "Verticies traversed :: " + addIndex);
 		return parent;
 	}
 	
