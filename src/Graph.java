@@ -80,31 +80,35 @@ public class Graph {
 		int[] parent = new int[NUM_NODES];
 		ArrayList<Integer> childrenList = new ArrayList<Integer>();
 		ArrayList<Integer> vertexList = new ArrayList<Integer>();
+		int[] vertices = new int[NUM_NODES];
+		int currentIndex = 0;
 		
 		int count;
 		Integer currentNode;
 		for (count = 0; count < NUM_NODES; count++){
 			parent[count] = NULL_NODE;
+			vertices[currentIndex] = NULL_NODE;
 		}
-		vertexList.add(source);
+		vertices[currentIndex] = source;
 		parent[source] = source;
 		
-		ListIterator<Integer> iterator = vertexList.listIterator();
-		while(iterator.hasNext()){
-			currentNode = iterator.next();
+		while(true){
+			currentNode = vertices[currentIndex];
+			currentIndex++;
 			if(currentNode == NULL_NODE)
 				break;
 			childrenList = _graphNodes[(int)currentNode];
 			for (Integer child : childrenList){
 				if(parent[child] == NULL_NODE){
 					parent[child] = currentNode;
-					vertexList.add(child);
+					vertices[currentIndex] = child;
+					currentIndex++;
 				} 
 			}
 			if (childrenList.contains(destination))
 				break;
 		}
-		System.out.println("Verticies traversed :: " + vertexList.size());
+		System.out.println("Verticies traversed :: " + currentIndex);
 		return parent;
 	}
 	
