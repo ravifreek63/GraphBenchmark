@@ -17,10 +17,12 @@ public class Graph {
 		ArrayList<Node> list1 = new ArrayList<Node>();
 		ArrayList<Node> list2 = new ArrayList<Node>();
 		boolean[] seenNode = new boolean[NUM_NODES];
-		Node childNode;	
-		list1.add(_root);		
+		Node childNode = null;
+		list1.add(_root);
+		int uniqueNodesSeen = 0;
+		boolean found = false;
 		// Iterate over list1 and add children to list2
-		while(true){
+		while(!found){
 			list2 = new ArrayList<Node>();
 			for(Node currentNode:  list1){				
 				childrenList = currentNode.getEdgeList();
@@ -28,11 +30,15 @@ public class Graph {
 					if(!seenNode[child.getNodeId()]){
 						list2.add(child);
 						seenNode[child.getNodeId()] = true;
+						uniqueNodesSeen++;
 				} 
 			}
 				childNode = currentNode.getChildIfExists(searchNodeId);
-				if(childNode != null)
-					return childNode;
+				if(childNode != null){
+					found = true;
+				    break;
+				}    
+				    
 			}
 			list1 = new ArrayList<Node>();
 			for(Node currentNode: list2){				
@@ -41,17 +47,21 @@ public class Graph {
 					if(!seenNode[child.getNodeId()]){
 						list1.add(child);
 						seenNode[child.getNodeId()] = true;
+						uniqueNodesSeen++;
 				} 
 			}
 				childNode = currentNode.getChildIfExists(searchNodeId);
-				if(childNode != null)
-					return childNode;
+				if(childNode != null){
+					found = true;
+					break;
+				}
 			}
 			if((list1.size() == 0 && list2.size() == 0)){
 				break;
 			}
 		}
-		return null;
+			System.out.println("Unique Nodes Visited : " + uniqueNodesSeen);
+			return childNode;
 	}
 	
 	public int getNumberEdges(int nodeId){

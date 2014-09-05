@@ -10,7 +10,12 @@ public class Worker implements Runnable {
 	private void searchGraph(){
 		System.out.println("Searching Graph For Thread -" + _workerId);
 		for (int count = 0; count < _numberSamplesPerThread; count++){
-			_graph.find(_samples[count]);
+			Node node = _graph.find(_samples[count]);
+			if(node != null){
+				if(node.getNodeId() != _samples[count]){
+					System.out.println("Something is wrong. Mismatch in nodeId.");
+				}
+			}
 		}
 	}
 	
