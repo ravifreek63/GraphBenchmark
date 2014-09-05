@@ -107,7 +107,6 @@ public class Graph {
 	
 	public void createEdgeBetween(int from, int to){
 		_nodes[from].getEdgeList().add(_nodes[to]);
-		_root = getRoot();
 		// adding an edge to the from node to the to node
 	}
 	
@@ -191,6 +190,7 @@ public class Graph {
 				setDataPath();
 				generateNodes();
 				createRelationships();
+				_root = getRoot();
 			} catch (NumberFormatException e){
 				System.out.print(e.toString());
 			}
