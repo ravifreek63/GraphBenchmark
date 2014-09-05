@@ -102,12 +102,12 @@ public class Graph {
 		_nodes = new Node[NUM_NODES];		
 		for (int count = 0; count < NUM_NODES; count++){
 			_nodes[count] = new Node(count);
-		}
-		_root = getRoot();
+		}		
 	}
 	
 	public void createEdgeBetween(int from, int to){
 		_nodes[from].getEdgeList().add(_nodes[to]);
+		_root = getRoot();
 		// adding an edge to the from node to the to node
 	}
 	
