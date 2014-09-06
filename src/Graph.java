@@ -99,6 +99,15 @@ public class Graph {
 		return 1;
 	}
 	
+	public int[][] generateRandomGraphMT(){
+		Random random = new Random();
+		long lStartTime = System.nanoTime();
+		int numberOfEdges = getNumNodes() * BRANCH_FACTOR;
+		int[][] edgeList = new int[numberOfEdges][2];
+		
+		return edgeList;
+	}
+	
 	public int[][] generateRandomGraph(){
 		Random random = new Random();
 		long lStartTime = System.nanoTime();
@@ -112,7 +121,8 @@ public class Graph {
 		}
 		long lEndTime = System.nanoTime();
 		long difference = lEndTime - lStartTime; 
-		System.out.println("Total Time Taken : " + (double)difference / Math.pow(10, 9));
+		System.out.println("Total Time Taken for generating the random graph"
+				+ " : " + (double)difference / Math.pow(10, 9));
 		return edgeList;
 	}
 	
