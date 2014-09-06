@@ -140,10 +140,15 @@ public class Graph {
 	
 	
 	public void createRelationships(int[][] edgeList){
+		long lStartTime = System.nanoTime();
 		int numberOfEdges = getNumNodes() * BRANCH_FACTOR;
 		for(int i=0; i < numberOfEdges; i++){
 			createEdgeBetween(edgeList[i][0], edgeList[i][1]);
 		}
+		long lEndTime = System.nanoTime();
+		long timeDifference = lEndTime - lStartTime;
+		System.out.println("TimeTaken for creating the relationships : " 
+		+ (double)timeDifference / Math.pow(10, 9));
 	}
 	
 	public void createRelationshipsFile(){
