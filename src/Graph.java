@@ -99,7 +99,25 @@ public class Graph {
 		return 1;
 	}
 	
+	public int[][] generateRandomGraph(){
+		Random random = new Random();
+		long lStartTime = System.nanoTime();
+		int numberOfEdges = getNumNodes() * BRANCH_FACTOR;
+		int[][] edgeList = new int[numberOfEdges][2];
+		for(int i=0; i < numberOfEdges; i++){
+			do{
+				edgeList[i][0] = random.nextInt(NUM_NODES);
+				edgeList[i][1] = random.nextInt(NUM_NODES);
+			} while(edgeList[i][0]  == edgeList[i][0]);
+		}
+		long lEndTime = System.nanoTime();
+		long difference = lEndTime - lStartTime; 
+		System.out.println("Total Time Taken : " + (double)difference / Math.pow(10, 9));
+		return edgeList;
+	}
+	
 	public int[][] generateGraph(){
+		long lStartTime = System.nanoTime();
 		System.out.println("Generating the graph.");
 		int numberOfEdges = getNumNodes() * BRANCH_FACTOR;
 		double _A_Param = 0.57, _B_Param = 0.19, _C_Param = 0.19;
@@ -121,7 +139,9 @@ public class Graph {
 				edgeList[i][1] = edgeList[i][1] + (int)Math.pow(2, count - 1) * jj_bit;
 			}
 		}
-		System.out.println("Graph generation done.");
+		long lEndTime = System.nanoTime();
+		long difference = lEndTime - lStartTime;
+		System.out.println("Graph generation done. Time taken : " + (double)difference/Math.pow(10, 9));
 		return edgeList;
 	}
 	
@@ -245,7 +265,7 @@ public class Graph {
 				System.out.println("Generating Nodes Done.");
 				System.out.println("Creating Relationships.");
 				long lStartTime = System.nanoTime();
-				createRelationships(generateGraph());
+				createRelationships(generateRandomGraph());
 				long lEndTime = System.nanoTime();
 				long timeDifference = lEndTime - lStartTime;
 				System.out.println("Total time taken for the creating of the graph in seconds: " 
