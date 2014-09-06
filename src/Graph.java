@@ -15,6 +15,10 @@ public class Graph {
 	private int[][] _edgeList;
 	private int _numberThreads; // number of threads for the graph generation
 	
+	public int getEdge(int index, int number){
+		return _edgeList[index][number];
+	}
+	
 	public int getNumberThreads(){
 		return _numberThreads;
 	}
@@ -313,10 +317,16 @@ public class Graph {
 				(double)timeDifference / Math.pow(10, 9));
 				System.out.println("Creating Relationships.");
 				lStartTime = System.nanoTime();				
-				createRelationships();
+				executor = Executors.newFixedThreadPool(_numberThreads); 
+				for(int count = 0; count < _numberThreads; count++){
+					RelationshipGenerator worker = new RelationshipGenerator(this, count);
+					executor.execute(worker);
+				}
+				executor.shutdown();
+				while(!executor.isTerminated());
 				lEndTime = System.nanoTime();
 				timeDifference = lEndTime - lStartTime;
-				System.out.println("Total time taken for the creating of the graph in seconds: " 
+				System.out.println("Total time taken for creating the graph in seconds: " 
 				+ (double)timeDifference/Math.pow(10, 9));
 				System.out.println("Creating Relationships Done.");
 				_root = getRoot();
