@@ -200,7 +200,12 @@ public class Graph {
 				generateNodes();
 				System.out.println("Generating Nodes Done.");
 				System.out.println("Creating Relationships.");
+				long lStartTime = System.nanoTime();
 				createRelationships();
+				long lEndTime = System.nanoTime();
+				long timeDifference = lEndTime - lStartTime;
+				System.out.println("Total time taken for the creating of the graph in seconds: " 
+				+ (double)timeDifference/Math.pow(10, 9));
 				System.out.println("Creating Relationships Done.");
 				_root = getRoot();
 			} catch (NumberFormatException e){
