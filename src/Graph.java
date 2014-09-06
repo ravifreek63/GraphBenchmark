@@ -93,9 +93,33 @@ public class Graph {
 		BRANCH_FACTOR = factor;	
 	}
 	
-	public void generateGraph(){
+	private int getValue(double n, double f){
+		if(n >= f)
+			return 0;
+		return 1;
+	}
+	
+	public int[][] generateGraph(){
 		int numberOfEdges = getNumNodes() * BRANCH_FACTOR;
-		
+		double _A_Param = 0.57, _B_Param = 0.19, _C_Param = 0.19;
+		double ab = _A_Param + _B_Param;
+		double _c_norm = _C_Param/(1 - ab);
+		double _a_norm = _A_Param/(ab);
+		int[][] edgeList = new int[numberOfEdges][2];
+		int[]ii_bit = new int[numberOfEdges];
+		int[]jj_bit = new int[numberOfEdges];
+		double l_value;
+		Random random = new Random();
+		for(int count = 1; count <= SCALE; count++){
+			for(int i=0; i < numberOfEdges; i++){
+				ii_bit[i] = getValue(random.nextDouble(), ab);
+				l_value = _c_norm * ii_bit[i] + _a_norm * (1-ii_bit[i]);
+				jj_bit[i] = getValue(random.nextDouble(), l_value);
+				edgeList[i][0] = edgeList[i][0] + (int)Math.pow(2, count - 1) * ii_bit[i];     
+				edgeList[i][1] = edgeList[i][1] + (int)Math.pow(2, count - 1) * jj_bit[i];
+			}
+		}
+		return edgeList;
 	}
 	
 	public void generateNodes(){
@@ -111,7 +135,15 @@ public class Graph {
 		// adding an edge to the from node to the to node
 	}
 	
-	public void createRelationships(){
+	
+	public void createRelationships(int[][] edgeList){
+		int numberOfEdges = getNumNodes() * BRANCH_FACTOR;
+		for(int i=0; i < numberOfEdges; i++){
+			createEdgeBetween(edgeList[i][0], edgeList[i][1]);
+		}
+	}
+	
+	public void createRelationshipsFile(){
 		long numberOfRelationships = getNumNodes() * BRANCH_FACTOR;
 		long count = 0;
 		double frac = 0.1;
@@ -125,7 +157,7 @@ public class Graph {
 		    String s = new String(data, "UTF-8");
 		    	 String[] lines = s.split("\\n");
 		    	 for(int lineNumber = 0; lineNumber < lines.length; lineNumber++){
-		    		 String[] parts = s.split("\\s+");
+		    		 String[] parts = lines[lineNumber].split("\\s+");
 		    		 from = Integer.parseInt(parts[1]);
 				        to = Integer.parseInt(parts[2]);
 				        if(from != to)
@@ -205,7 +237,7 @@ public class Graph {
 				System.out.println("Generating Nodes Done.");
 				System.out.println("Creating Relationships.");
 				long lStartTime = System.nanoTime();
-				createRelationships();
+				createRelationships(generateGraph());
 				long lEndTime = System.nanoTime();
 				long timeDifference = lEndTime - lStartTime;
 				System.out.println("Total time taken for the creating of the graph in seconds: " 
