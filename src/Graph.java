@@ -1,5 +1,7 @@
 import java.util.*;
 import java.io.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 
 public class Graph {
 	private Node _root;
@@ -7,8 +9,15 @@ public class Graph {
 	private int NUM_NODES;
 	private int SCALE ; 
 	private int BRANCH_FACTOR;
+	private int NUMBER_EDGES;
 	private static final int NULL_NODE = -1;
 	private Node[]_nodes;
+	private int[][] _edgeList;
+	private int _numberThreads; // number of threads for the graph generation
+	
+	public int getNumberThreads(){
+		return _numberThreads;
+	}
 	
 	public Node getRoot() { 
 		int nodeId = 0;
@@ -93,6 +102,14 @@ public class Graph {
 		BRANCH_FACTOR = factor;	
 	}
 	
+	public void setNumberEdges(){
+		NUMBER_EDGES = getNumNodes() * BRANCH_FACTOR;
+	}
+	
+	public int getEdgeCount(){
+		return NUMBER_EDGES;
+	}
+	
 	private int getValue(double n, double f){
 		if(n >= f)
 			return 0;
@@ -111,9 +128,8 @@ public class Graph {
 	public int[][] generateRandomGraph(){
 		Random random = new Random();
 		long lStartTime = System.nanoTime();
-		int numberOfEdges = getNumNodes() * BRANCH_FACTOR;
-		int[][] edgeList = new int[numberOfEdges][2];
-		for(int i=0; i < numberOfEdges; i++){
+		int[][] edgeList = new int[NUMBER_EDGES][2];
+		for(int i=0; i < NUMBER_EDGES; i++){
 			do{
 				edgeList[i][0] = random.nextInt(NUM_NODES);
 				edgeList[i][1] = random.nextInt(NUM_NODES);
@@ -129,19 +145,18 @@ public class Graph {
 	public int[][] generateGraph(){
 		long lStartTime = System.nanoTime();
 		System.out.println("Generating the graph.");
-		int numberOfEdges = getNumNodes() * BRANCH_FACTOR;
 		double _A_Param = 0.57, _B_Param = 0.19, _C_Param = 0.19;
 		double ab = _A_Param + _B_Param;
 		double _c_norm = _C_Param/(1 - ab);
 		double _a_norm = _A_Param/(ab);
-		int[][] edgeList = new int[numberOfEdges][2];
+		int[][] edgeList = new int[NUMBER_EDGES][2];
 		int ii_bit;
 		int jj_bit;
 		double l_value;
 		Random random = new Random();
 		for(int count = 1; count <= SCALE; count++){
 			System.out.println("Scale:" + count);
-			for(int i=0; i < numberOfEdges; i++){
+			for(int i=0; i < NUMBER_EDGES; i++){
 				ii_bit = getValue(random.nextDouble(), ab);
 				l_value = _c_norm * ii_bit + _a_norm * (1-ii_bit);
 				jj_bit = getValue(random.nextDouble(), l_value);
@@ -169,11 +184,10 @@ public class Graph {
 	}
 	
 	
-	public void createRelationships(int[][] edgeList){
+	public void createRelationships(){
 		long lStartTime = System.nanoTime();
-		int numberOfEdges = getNumNodes() * BRANCH_FACTOR;
-		for(int i=0; i < numberOfEdges; i++){
-			createEdgeBetween(edgeList[i][0], edgeList[i][1]);
+		for(int i=0; i < NUMBER_EDGES; i++){
+			createEdgeBetween(_edgeList[i][0], _edgeList[i][1]);
 		}
 		long lEndTime = System.nanoTime();
 		long timeDifference = lEndTime - lStartTime;
@@ -263,19 +277,38 @@ public class Graph {
 		return parent;
 	}
 	
+	public void init(int _scale, int _branchFactor){
+		System.out.println("Setting the parameters.");
+		setScale(_scale);
+		setBranchFactor(_branchFactor);
+		setNumberEdges();
+		_edgeList = new int[NUMBER_EDGES][2];
+		_numberThreads = 8;
+	}
+	
+	public void setEdge(int from, int to, int index){
+		_edgeList[index][0] = from;
+		_edgeList[index][1] = to;
+	}
+	
 	public Graph(String scale, String branchFactor){
 		try{
-			int _scale = Integer.parseInt(scale);
-			int _branchFactor = Integer.parseInt(branchFactor);
-				setScale(_scale);
-				setBranchFactor(_branchFactor);
-				setDataPath();
+				init(Integer.parseInt(scale), Integer.parseInt(branchFactor)); 
 				System.out.println("Generating Nodes.");
 				generateNodes();
 				System.out.println("Generating Nodes Done.");
+				System.out.println("Generating Graph.");
+				ExecutorService executor = Executors.newFixedThreadPool(_numberThreads); 
+				for(int count = 0; count < _numberThreads; count++){
+					GraphGenerator worker = new GraphGenerator(this, count);
+					executor.execute(worker);
+				}
+				executor.shutdown();
+				while(!executor.isTerminated());
+				System.out.println("Generating Graph Done.");
 				System.out.println("Creating Relationships.");
-				long lStartTime = System.nanoTime();
-				createRelationships(generateRandomGraph());
+				long lStartTime = System.nanoTime();				
+				createRelationships();
 				long lEndTime = System.nanoTime();
 				long timeDifference = lEndTime - lStartTime;
 				System.out.println("Total time taken for the creating of the graph in seconds: " 
