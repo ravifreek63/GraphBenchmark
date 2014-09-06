@@ -107,18 +107,18 @@ public class Graph {
 		double _c_norm = _C_Param/(1 - ab);
 		double _a_norm = _A_Param/(ab);
 		int[][] edgeList = new int[numberOfEdges][2];
-		int[]ii_bit = new int[numberOfEdges];
-		int[]jj_bit = new int[numberOfEdges];
+		int ii_bit;
+		int jj_bit;
 		double l_value;
 		Random random = new Random();
 		for(int count = 1; count <= SCALE; count++){
 			System.out.println("Scale:" + count);
 			for(int i=0; i < numberOfEdges; i++){
-				ii_bit[i] = getValue(random.nextDouble(), ab);
-				l_value = _c_norm * ii_bit[i] + _a_norm * (1-ii_bit[i]);
-				jj_bit[i] = getValue(random.nextDouble(), l_value);
-				edgeList[i][0] = edgeList[i][0] + (int)Math.pow(2, count - 1) * ii_bit[i];     
-				edgeList[i][1] = edgeList[i][1] + (int)Math.pow(2, count - 1) * jj_bit[i];
+				ii_bit = getValue(random.nextDouble(), ab);
+				l_value = _c_norm * ii_bit + _a_norm * (1-ii_bit);
+				jj_bit = getValue(random.nextDouble(), l_value);
+				edgeList[i][0] = edgeList[i][0] + (int)Math.pow(2, count - 1) * ii_bit;     
+				edgeList[i][1] = edgeList[i][1] + (int)Math.pow(2, count - 1) * jj_bit;
 			}
 		}
 		System.out.println("Graph generation done.");
