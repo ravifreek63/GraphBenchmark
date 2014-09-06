@@ -108,7 +108,7 @@ public class Graph {
 			do{
 				edgeList[i][0] = random.nextInt(NUM_NODES);
 				edgeList[i][1] = random.nextInt(NUM_NODES);
-			} while(edgeList[i][0]  == edgeList[i][0]);
+			} while(edgeList[i][0]  == edgeList[i][1]);
 		}
 		long lEndTime = System.nanoTime();
 		long difference = lEndTime - lStartTime; 
