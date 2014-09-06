@@ -100,6 +100,7 @@ public class Graph {
 	}
 	
 	public int[][] generateGraph(){
+		System.out.println("Generating the graph.");
 		int numberOfEdges = getNumNodes() * BRANCH_FACTOR;
 		double _A_Param = 0.57, _B_Param = 0.19, _C_Param = 0.19;
 		double ab = _A_Param + _B_Param;
@@ -119,6 +120,7 @@ public class Graph {
 				edgeList[i][1] = edgeList[i][1] + (int)Math.pow(2, count - 1) * jj_bit[i];
 			}
 		}
+		System.out.println("Graph generation done.");
 		return edgeList;
 	}
 	
