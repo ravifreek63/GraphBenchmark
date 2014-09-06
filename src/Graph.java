@@ -94,6 +94,7 @@ public class Graph {
 	}
 	
 	public void generateGraph(){
+		int numberOfEdges = getNumNodes() * BRANCH_FACTOR;
 		
 	}
 	
@@ -114,29 +115,32 @@ public class Graph {
 		long numberOfRelationships = getNumNodes() * BRANCH_FACTOR;
 		long count = 0;
 		double frac = 0.1;
-		BufferedReader br = null; 
+		FileInputStream fis = null;
+		int from, to;
 		try {
-		    File file = new File(DATA_PATH);
-		    br = new BufferedReader(new FileReader(file));
-		    int from, to;
-		    String  thisLine = null;
-		    while ((thisLine = br.readLine()) != null) {
-		      String[] parts = thisLine.split("\\s+");
-		        from = Integer.parseInt(parts[1]);
-		        to = Integer.parseInt(parts[2]);
-		        if(from != to)
-		        	createEdgeBetween(from, to);
-		        count++;
-		        if((double)count/numberOfRelationships  >= frac){
-		        	System.out.println("frac : " + frac + " read.");
-		        	frac += 0.1;
-		        }
-		   }
+			File file = new File(DATA_PATH);
+			fis = new FileInputStream(file);
+		    byte[] data = new byte[(int)file.length()];
+		    fis.read(data);
+		    String s = new String(data, "UTF-8");
+		    	 String[] lines = s.split("\\n");
+		    	 for(int lineNumber = 0; lineNumber < lines.length; lineNumber++){
+		    		 String[] parts = s.split("\\s+");
+		    		 from = Integer.parseInt(parts[1]);
+				        to = Integer.parseInt(parts[2]);
+				        if(from != to)
+				        	createEdgeBetween(from, to);
+				        count++;
+				        if((double)count/numberOfRelationships  >= frac){
+				        	System.out.println("frac : " + frac + " read.");
+				        	frac += 0.1;
+				        }
+		    	 }
 		} catch(IOException e){
 		  e.printStackTrace();
 		}finally {
 		    try {
-		        br.close();
+		    	 fis.close();
 		    } catch (IOException e) {
 		        e.printStackTrace();
 		    }
