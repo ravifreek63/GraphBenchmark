@@ -112,6 +112,7 @@ public class Graph {
 		double l_value;
 		Random random = new Random();
 		for(int count = 1; count <= SCALE; count++){
+			System.out.println("Scale:" + count);
 			for(int i=0; i < numberOfEdges; i++){
 				ii_bit[i] = getValue(random.nextDouble(), ab);
 				l_value = _c_norm * ii_bit[i] + _a_norm * (1-ii_bit[i]);
