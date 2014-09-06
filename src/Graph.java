@@ -298,6 +298,7 @@ public class Graph {
 				generateNodes();
 				System.out.println("Generating Nodes Done.");
 				System.out.println("Generating Graph.");
+				long lStartTime = System.nanoTime();
 				ExecutorService executor = Executors.newFixedThreadPool(_numberThreads); 
 				for(int count = 0; count < _numberThreads; count++){
 					GraphGenerator worker = new GraphGenerator(this, count);
@@ -306,11 +307,15 @@ public class Graph {
 				executor.shutdown();
 				while(!executor.isTerminated());
 				System.out.println("Generating Graph Done.");
-				System.out.println("Creating Relationships.");
-				long lStartTime = System.nanoTime();				
-				createRelationships();
 				long lEndTime = System.nanoTime();
 				long timeDifference = lEndTime - lStartTime;
+				System.out.println("Time Taken For Generating the graph : " + 
+				(double)timeDifference / Math.pow(10, 9));
+				System.out.println("Creating Relationships.");
+				lStartTime = System.nanoTime();				
+				createRelationships();
+				lEndTime = System.nanoTime();
+				timeDifference = lEndTime - lStartTime;
 				System.out.println("Total time taken for the creating of the graph in seconds: " 
 				+ (double)timeDifference/Math.pow(10, 9));
 				System.out.println("Creating Relationships Done.");
