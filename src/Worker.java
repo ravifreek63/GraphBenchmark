@@ -5,11 +5,12 @@ public class Worker implements Runnable {
 	private int _numberSamplesPerThread;
 	private int[] _samples;
 	private int _workerId;
+	private int _edgesTraversed;
 	
 	private void searchGraph(){
 		System.out.println("Searching Graph For Thread -" + _workerId);
 		for (int count = 0; count < _numberSamplesPerThread; count++){
-			Node node = _graph.find(_samples[count]);
+			Node node = _graph.find(_samples[count], _workerId);
 			if(node != null){
 				if(node.getNodeId() != _samples[count]){
 					System.out.println("Something is wrong. Mismatch in nodeId.");
@@ -43,5 +44,6 @@ public class Worker implements Runnable {
 		_graph = g; 
 		_numberSamplesPerThread = samples;
 		_workerId = workerId;
+		_edgesTraversed = 0;
 	}
 }

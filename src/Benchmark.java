@@ -35,7 +35,7 @@ public class Benchmark {
 				System.out.print(e.toString());
 			}
 		}	
-
+		Statistics.setNumberThreads(_numberThreads);
 		// Starting Worker Threads 
 		System.out.println("Starting Threads ..... ");
 		long lStartTime = System.nanoTime();
@@ -48,6 +48,7 @@ public class Benchmark {
 		while(!executor.isTerminated());
 		long lEndTime = System.nanoTime();
 		long difference = lEndTime - lStartTime;
-		System.out.println("Total time taken in seconds : " + (double)difference/Math.pow(10,9));
+		Statistics.setGraphSearchTime(difference);
+		Statistics.printStats();
 	}
 }

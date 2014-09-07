@@ -33,7 +33,8 @@ public class Graph {
 		}
 	}
 	
-	public Node find(int searchNodeId){
+	public Node find(int searchNodeId, int workerId){
+		int edgesTraversed = 0;
 		ArrayList<Node> childrenList;
 		ArrayList<Node> list1 = new ArrayList<Node>();
 		ArrayList<Node> list2 = new ArrayList<Node>();
@@ -47,6 +48,7 @@ public class Graph {
 			list2 = new ArrayList<Node>();
 			for(Node currentNode:  list1){				
 				childrenList = currentNode.getEdgeList();
+				edgesTraversed += childrenList.size();
 				for (Node child : childrenList){
 					if(!seenNode[child.getNodeId()]){
 						list2.add(child);
@@ -64,6 +66,7 @@ public class Graph {
 			list1 = new ArrayList<Node>();
 			for(Node currentNode: list2){				
 				childrenList = currentNode.getEdgeList();
+				edgesTraversed += childrenList.size();
 				for (Node child : childrenList){
 					if(!seenNode[child.getNodeId()]){
 						list1.add(child);
@@ -82,6 +85,7 @@ public class Graph {
 			}
 		}
 			System.out.println("Unique Nodes Visited : " + uniqueNodesSeen);
+			Statistics.incrementEdgesTraversed(edgesTraversed, workerId);
 			return childNode;
 	}
 	
@@ -313,8 +317,8 @@ public class Graph {
 				System.out.println("Generating Graph Done.");
 				long lEndTime = System.nanoTime();
 				long timeDifference = lEndTime - lStartTime;
-				System.out.println("Time Taken For Generating the graph : " + 
-				(double)timeDifference / Math.pow(10, 9));
+//				System.out.println("Time Taken For Generating the graph : " + 
+//				(double)timeDifference / Math.pow(10, 9));
 				System.out.println("Creating Relationships.");
 				lStartTime = System.nanoTime();				
 				executor = Executors.newFixedThreadPool(_numberThreads); 
@@ -326,8 +330,9 @@ public class Graph {
 				while(!executor.isTerminated());
 				lEndTime = System.nanoTime();
 				timeDifference = lEndTime - lStartTime;
-				System.out.println("Total time taken for creating the graph in seconds: " 
-				+ (double)timeDifference/Math.pow(10, 9));
+				Statistics.setGraphGenerationTime(timeDifference);
+//				System.out.println("Total time taken for creating the graph in seconds: " 
+//				+ (double)timeDifference/Math.pow(10, 9));
 				System.out.println("Creating Relationships Done.");
 				_root = getRoot();
 			} catch (NumberFormatException e){
