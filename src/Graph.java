@@ -84,7 +84,6 @@ public class Graph {
 				break;
 			}
 		}
-			System.out.println("Unique Nodes Visited : " + uniqueNodesSeen);
 			Statistics.incrementEdgesTraversed(edgesTraversed, workerId);
 			return childNode;
 	}
