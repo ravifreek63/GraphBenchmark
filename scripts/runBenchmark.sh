@@ -1,3 +1,4 @@
+#!/bin/bash
 cd /home/tandon/Projects/GraphBenchmark/src;
 javac *.java
 sudo echo 1 > /proc/sys/vm/drop_caches;
