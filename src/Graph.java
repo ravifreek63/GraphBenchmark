@@ -188,7 +188,10 @@ public class Graph {
 	}
 	
 	public void createEdgeBetween(int from, int to){
-		_nodes[from].getEdgeList().add(_nodes[to]);
+//		_nodes[from].getEdgeList().add(_nodes[to]);
+		if(_nodes[from] == null){
+			System.exit(1);
+		}
 		// adding an edge to the from node to the to node
 	}
 	

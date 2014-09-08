@@ -14,11 +14,11 @@ public class RelationshipGenerator implements Runnable {
 			from = _graph.getEdge(index, 0);
 			to = _graph.getEdge(index, 1);
 			if(from >= partitionStart && from < partitionEnd){
-//				_graph.createEdgeBetween(from, to);
+				_graph.createEdgeBetween(from, to);
 			}
-			sum = sum + to + from;
+//			sum = sum + to + from;
 		}
-		System.out.println(sum);
+//		System.out.println(sum);
 	}
 	
 	public RelationshipGenerator(Graph g, int id){
