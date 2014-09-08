@@ -34,15 +34,17 @@ public class Graph {
 	}
 	
 	public Node find(int searchNodeId, int workerId){
-		int edgesTraversed = 0;
-		ArrayList<Node> childrenList;
-		ArrayList<Node> list1 = new ArrayList<Node>();
-		ArrayList<Node> list2 = new ArrayList<Node>();
-		boolean[] seenNode = new boolean[NUM_NODES];
-		Node childNode = null;
-		list1.add(_root);
+		int edgesTraversed = 0; // variable 3 is edgesTraversed
+		ArrayList<Node> childrenList; //
+		ArrayList<Node> list1 = new ArrayList<Node>(); // variable 5 is list1
+		ArrayList<Node> list2 = new ArrayList<Node>(); // variable 6 is list2 
+		// (aload_0) is called to get the NUM_NODES field here - Object Access #1
+		boolean[] seenNode = new boolean[NUM_NODES]; // variable 7 is seenNode  
+		Node childNode = null; // variable 8 is childNode 
+		list1.add(_root); // Object Access #2, field 9 is root, (aload_0)
+		//  Object Access #3 invoking method on list1 object(aload n)
 		int uniqueNodesSeen = 0;
-		boolean found = false;
+		boolean found = false; // found is variable at position 10 
 		// Iterate over list1 and add children to list2
 		while(!found){
 			list2 = new ArrayList<Node>();
@@ -189,7 +191,6 @@ public class Graph {
 		_nodes[from].getEdgeList().add(_nodes[to]);
 		// adding an edge to the from node to the to node
 	}
-	
 	
 	public void createRelationships(){
 		long lStartTime = System.nanoTime();
