@@ -334,7 +334,7 @@ public class Graph {
 //				System.out.println("Total time taken for creating the graph in seconds: " 
 //				+ (double)timeDifference/Math.pow(10, 9));
 				System.out.println("Creating Relationships Done.");
-				_root = getRoot();
+//				_root = getRoot();
 			} catch (NumberFormatException e){
 				System.out.print(e.toString());
 			}
