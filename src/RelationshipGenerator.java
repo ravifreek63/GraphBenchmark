@@ -14,7 +14,7 @@ public class RelationshipGenerator implements Runnable {
 			from = _graph.getEdge(index, 0);
 			to = _graph.getEdge(index, 1);
 			if(from >= partitionStart && from < partitionEnd){
-				_graph.createEdgeBetween(from, to);
+//				_graph.createEdgeBetween(from, to);
 			}
 		}
 	}
