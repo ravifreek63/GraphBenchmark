@@ -190,6 +190,7 @@ public class Graph {
 	public void createEdgeBetween(int from, int to){
 //		_nodes[from].getEdgeList().add(_nodes[to]);
 		_nodes[from].getEdgeList().add(_nodes[from]);
+		_nodes[from].getEdgeList().remove(0);
 //		if(_nodes[from].getEdgeList().add(_nodes[from]) == null){
 //			System.exit(1);
 //		}
