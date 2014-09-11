@@ -13,10 +13,10 @@ java -Xcomp -XX:InCoreHeapSize=270 -XX:+UseConcMarkSweepGC -XX:+PrintGC -Xms10g 
 "openjdk_gc")
 sudo bash /home/tandon/change.sh openjdk
 cd /home/tandon/Projects/GraphBenchmark/src;
-java -XX:+UseConcMarkSweepGC -XX:+PrintGC -Xms2g -XX:-PrintGCDetails Benchmark 21 16 4 10
+time java -XX:+UseConcMarkSweepGC -XX:+PrintGC -Xms2g -XX:-PrintGCDetails Benchmark 21 16 4 10
 ;;
 *)
 sudo bash /home/tandon/change.sh
 cd /home/tandon/Projects/GraphBenchmark/src;
-java -XX:+PrintGC -Xms2g -XX:+UseConcMarkSweepGC -XX:-PrintGCDetails  Benchmark 21 16 4 10
+time java -XX:+PrintGC -Xms2g -XX:+UseConcMarkSweepGC -XX:-PrintGCDetails  Benchmark 21 16 4 10
 esac
