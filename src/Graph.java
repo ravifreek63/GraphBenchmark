@@ -190,7 +190,7 @@ public class Graph {
 	public void createEdgeBetween(int from, int to){
 //		_nodes[from].getEdgeList().add(_nodes[to]);
 		_nodes[from].getEdgeList().add(_nodes[from]);
-		_nodes[from].getEdgeList().remove(0);
+//		_nodes[from].getEdgeList().remove(0);
 //		if(_nodes[from].getEdgeList().add(_nodes[from]) == null){
 //			System.exit(1);
 //		}
@@ -325,6 +325,8 @@ public class Graph {
 //				System.out.println("Time Taken For Generating the graph : " + 
 //				(double)timeDifference / Math.pow(10, 9));
 				System.out.println("Creating Relationships.");
+				System.out.println("Triggering a full garbage collection.");
+				System.gc();
 				lStartTime = System.nanoTime();				
 				executor = Executors.newFixedThreadPool(_numberThreads); 
 				for(int count = 0; count < _numberThreads; count++){
