@@ -8,7 +8,7 @@ public class GraphGenerator implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		System.out.println("Generating the graph for worker :: " + _workerId);
+//		System.out.println("Generating the graph for worker :: " + _workerId);
 		int num_nodes = _graph.getNumNodes();
 		int partitionSize = _graph.getEdgeCount() / _graph.getNumberThreads();
 		int partitionStart = _workerId * partitionSize;
