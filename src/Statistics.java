@@ -42,7 +42,7 @@ public class Statistics {
 		System.out.println("Printing Statistics ......");
 		System.out.println("Time taken for graph generation : " + toSeconds(_graphGenerationTime) + " seconds.");
 		System.out.println("Time taken for graph search : " + toSeconds(_graphSearchTime) + " seconds.");
-//		System.out.println("Total number of edges traversed : " + totalEdgesTraversed());
-//		System.out.println("Edge traversal rate : " + (double)totalEdgesTraversed()/toMilliseconds(_graphSearchTime));
+		System.out.println("Total number of edges traversed : " + totalEdgesTraversed());
+		System.out.println("Edge traversal rate : " + (double)totalEdgesTraversed()/toMilliseconds(_graphSearchTime));
 	}
 }
