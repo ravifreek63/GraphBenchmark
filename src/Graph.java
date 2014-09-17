@@ -296,7 +296,7 @@ public class Graph {
 		setBranchFactor(_branchFactor);
 		setNumberEdges();
 		_edgeList = new int[NUMBER_EDGES][2];
-		_numberThreads = 8;
+		_numberThreads = 6;
 	}
 	
 	public void setEdge(int from, int to, int index){
@@ -307,12 +307,13 @@ public class Graph {
 	public Graph(String scale, String branchFactor){
 		try{
 				init(Integer.parseInt(scale), Integer.parseInt(branchFactor)); 
-				System.out.println("Generating Nodes.");
+				System.out.println("Generating Nodes. Yoo");
 				generateNodes();
 				System.out.println("Generating Nodes Done.");
 				System.out.println("Generating Graph.");
 				long lStartTime = System.nanoTime();
 				ExecutorService executor = Executors.newFixedThreadPool(_numberThreads); 
+                System.out.println("Size of the thread pool = " + _numberThreads);
 				for(int count = 0; count < _numberThreads; count++){
 					GraphGenerator worker = new GraphGenerator(this, count);
 					executor.execute(worker);
@@ -325,8 +326,8 @@ public class Graph {
 //				System.out.println("Time Taken For Generating the graph : " + 
 //				(double)timeDifference / Math.pow(10, 9));
 				System.out.println("Creating Relationships.");
-				System.out.println("Triggering a full garbage collection.");
-				System.gc();
+				//System.out.println("Triggering a full garbage collection.");
+				//System.gc();
 				lStartTime = System.nanoTime();				
 				executor = Executors.newFixedThreadPool(_numberThreads); 
 				for(int count = 0; count < _numberThreads; count++){
