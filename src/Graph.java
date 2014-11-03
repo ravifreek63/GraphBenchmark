@@ -187,6 +187,7 @@ public class Graph {
 	
 	public void generateNodes(){
 		NUM_NODES = getNumNodes();
+		System.out.println("Generating " + NUM_NODES + " nodes.");
 		_nodes = new Node[NUM_NODES];		
 		for (int count = 0; count < NUM_NODES; count++){
 			_nodes[count] = new Node(count);
