@@ -29,7 +29,7 @@ public class Benchmark {
 			_numberThreads = 8;
 		} else {
 			try{
-				_numberThreads = Integer.parseInt(args[2]);
+				_numberThreads = Integer.parseInt(args[3]);
 			}catch (NumberFormatException e){
 				System.out.print(e.toString());
 			}
@@ -38,7 +38,7 @@ public class Benchmark {
 			_numberSamplesPerThread = 64;
 		} else {
 			try{
-				_numberSamplesPerThread = Integer.parseInt(args[3]);
+				_numberSamplesPerThread = Integer.parseInt(args[4]);
 			}catch (NumberFormatException e){
 				System.out.print(e.toString());
 			}
