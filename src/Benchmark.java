@@ -24,12 +24,12 @@ public class Benchmark {
 			System.out.println("Insufficient number of arguments");
 			System.exit(-1);
 		}
-		benchmark.createGraphWithNodes(args[0], args[1], args[2]);
+		benchmark.createGraph(args[0], args[1]);
 		if(args.length < 3){
 			_numberThreads = 8;
 		} else {
 			try{
-				_numberThreads = Integer.parseInt(args[3]);
+				_numberThreads = Integer.parseInt(args[2]);
 			}catch (NumberFormatException e){
 				System.out.print(e.toString());
 			}
@@ -38,7 +38,7 @@ public class Benchmark {
 			_numberSamplesPerThread = 64;
 		} else {
 			try{
-				_numberSamplesPerThread = Integer.parseInt(args[4]);
+				_numberSamplesPerThread = Integer.parseInt(args[3]);
 			}catch (NumberFormatException e){
 				System.out.print(e.toString());
 			}
