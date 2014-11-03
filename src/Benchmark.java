@@ -14,9 +14,17 @@ public class Benchmark {
 		_graph = new Graph(scale, branchFactor);
 	}
 	
+	public void createGraphWithNodes(String scale, String branchFactor, String numNodes){
+		_graph = new Graph("-1", branchFactor, numNodes);
+	}	
+	
 	public static void main(String[] args){
 		Benchmark benchmark = new Benchmark();
-		benchmark.createGraph(args[0], args[1]);
+		if(args.length<3){
+			System.out.println("Insufficient number of arguments");
+			System.exit(-1);
+		}
+		benchmark.createGraphWithNodes(args[0], args[1], args[2]);
 		if(args.length < 3){
 			_numberThreads = 8;
 		} else {

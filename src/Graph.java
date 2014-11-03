@@ -99,7 +99,13 @@ public class Graph {
 				Integer.toString(BRANCH_FACTOR) + ".txt";
 	}
 	
+	public void setNumNodes(int n){
+		NUM_NODES = n;
+	}
+	
 	public int getNumNodes(){
+		if(SCALE==-1)
+			return NUM_NODES;
 		return (int)Math.pow ( 2, SCALE);
 	}
 	
@@ -302,6 +308,50 @@ public class Graph {
 	public void setEdge(int from, int to, int index){
 		_edgeList[index][0] = from;
 		_edgeList[index][1] = to;
+	}
+	
+	public Graph(String scale, String branchFactor, String numNodes){
+		try{
+			init(Integer.parseInt(scale), Integer.parseInt(branchFactor)); 
+			System.out.println("Generating Nodes.");
+			setNumNodes(Integer.parseInt(numNodes));
+			generateNodes();
+			System.out.println("Generating Nodes Done.");
+			System.out.println("Generating Graph.");
+			long lStartTime = System.nanoTime();
+			ExecutorService executor = Executors.newFixedThreadPool(_numberThreads); 
+			for(int count = 0; count < _numberThreads; count++){
+				GraphGenerator worker = new GraphGenerator(this, count);
+				executor.execute(worker);
+			}
+			executor.shutdown();
+			while(!executor.isTerminated());
+			System.out.println("Generating Graph Done.");
+			long lEndTime = System.nanoTime();
+			long timeDifference = lEndTime - lStartTime;
+//			System.out.println("Time Taken For Generating the graph : " + 
+//			(double)timeDifference / Math.pow(10, 9));
+			System.out.println("Creating Relationships.");
+			System.out.println("Triggering a full garbage collection.");
+			System.gc();
+			lStartTime = System.nanoTime();				
+			/*executor = Executors.newFixedThreadPool(_numberThreads); 
+			for(int count = 0; count < _numberThreads; count++){
+				RelationshipGenerator worker = new RelationshipGenerator(this, count);
+				executor.execute(worker);
+			}
+			executor.shutdown();
+			while(!executor.isTerminated());*/
+			lEndTime = System.nanoTime();
+			timeDifference = lEndTime - lStartTime;
+			Statistics.setGraphGenerationTime(timeDifference);
+//			System.out.println("Total time taken for creating the graph in seconds: " 
+//			+ (double)timeDifference/Math.pow(10, 9));
+			System.out.println("Creating Relationships Done.");
+//			_root = getRoot();
+		} catch (NumberFormatException e){
+			System.out.print(e.toString());
+		}
 	}
 	
 	public Graph(String scale, String branchFactor){
