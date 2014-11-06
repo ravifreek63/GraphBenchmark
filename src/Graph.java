@@ -379,13 +379,13 @@ public class Graph {
 				System.out.println("Triggering a full garbage collection.");
 //				System.gc();
 				lStartTime = System.nanoTime();				
-				/*executor = Executors.newFixedThreadPool(_numberThreads); 
+				executor = Executors.newFixedThreadPool(_numberThreads); 
 				for(int count = 0; count < _numberThreads; count++){
 					RelationshipGenerator worker = new RelationshipGenerator(this, count);
 					executor.execute(worker);
 				}
 				executor.shutdown();
-				while(!executor.isTerminated());*/
+				while(!executor.isTerminated());
 				lEndTime = System.nanoTime();
 				timeDifference = lEndTime - lStartTime;
 				Statistics.setGraphGenerationTime(timeDifference);
