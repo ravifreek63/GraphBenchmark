@@ -33,11 +33,12 @@ public class Graph {
 		}
 	}
 	
-	public Node find(int searchNodeId, int workerId){
+	public ArrayList<Node> find(int searchNodeId, int workerId){
 		int edgesTraversed = 0; // variable 3 is edgesTraversed
 		ArrayList<Node> childrenList; //
 		ArrayList<Node> list1 = new ArrayList<Node>(); // variable 5 is list1
 		ArrayList<Node> list2 = new ArrayList<Node>(); // variable 6 is list2 
+		ArrayList<Node> exploredNodes = new ArrayList<Node>(); 
 		// (aload_0) is called to get the NUM_NODES field here - Object Access #1
 		boolean[] seenNode = new boolean[NUM_NODES]; // variable 7 is seenNode  
 		Node childNode = null; // variable 8 is childNode 
@@ -50,6 +51,8 @@ public class Graph {
 			list2 = new ArrayList<Node>();
 			for(Node currentNode:  list1){				
 				childrenList = currentNode.getEdgeList();
+				if(childrenList != null)
+					exploredNodes.addAll(childrenList);
 				edgesTraversed += childrenList.size();
 				for (Node child : childrenList){
 					if(!seenNode[child.getNodeId()]){
@@ -68,6 +71,8 @@ public class Graph {
 			list1 = new ArrayList<Node>();
 			for(Node currentNode: list2){				
 				childrenList = currentNode.getEdgeList();
+				if(childrenList != null)
+					exploredNodes.addAll(childrenList);
 				edgesTraversed += childrenList.size();
 				for (Node child : childrenList){
 					if(!seenNode[child.getNodeId()]){
@@ -87,7 +92,7 @@ public class Graph {
 			}
 		}
 			Statistics.incrementEdgesTraversed(edgesTraversed, workerId);
-			return childNode;
+			return exploredNodes;
 	}
 	
 	public int getNumberEdges(int nodeId){
@@ -376,7 +381,7 @@ public class Graph {
 //				System.out.println("Time Taken For Generating the graph : " + 
 //				(double)timeDifference / Math.pow(10, 9));
 				System.out.println("Creating Relationships.");
-				System.out.println("Triggering a full garbage collection.");
+				//System.out.println("Triggering a full garbage collection.");
 //				System.gc();
 				lStartTime = System.nanoTime();				
 				executor = Executors.newFixedThreadPool(_numberThreads); 

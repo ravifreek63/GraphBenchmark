@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Worker implements Runnable {
@@ -8,15 +9,18 @@ public class Worker implements Runnable {
 	private int _edgesTraversed;
 	
 	private void searchGraph(){
+		ArrayList<Node> allNodes = new ArrayList<Node>();
 		System.out.println("Searching Graph For Thread -" + _workerId);
 		for (int count = 0; count < _numberSamplesPerThread; count++){
-			Node node = _graph.find(_samples[count], _workerId);
-			if(node != null){
-				if(node.getNodeId() != _samples[count]){
+			ArrayList<Node> nodes = _graph.find(_samples[count], _workerId);
+			if(nodes != null){
+				allNodes.addAll(nodes);
+				/*if(node.getNodeId() != _samples[count]){
 					System.out.println("Something is wrong. Mismatch in nodeId.");
-				}
+				}*/
 			}
 		}
+		System.out.println("Size:" + allNodes.size());
 	}
 	
 	private void generateSamples(){
