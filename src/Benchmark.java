@@ -45,7 +45,7 @@ public class Benchmark {
 		}	
 		Statistics.setNumberThreads(_numberThreads);
 		// Starting Worker Threads 
-		/*System.out.println("Starting Threads ..... ");
+		System.out.println("Starting Threads ..... ");
 		long lStartTime = System.nanoTime();
 		ExecutorService executor = Executors.newFixedThreadPool(_numberThreads); 
 		for(int count = 0; count < _numberThreads; count++){
@@ -56,7 +56,7 @@ public class Benchmark {
 		while(!executor.isTerminated());
 		long lEndTime = System.nanoTime();
 		long difference = lEndTime - lStartTime;
-		Statistics.setGraphSearchTime(difference);*/
+		Statistics.setGraphSearchTime(difference);
 		Statistics.printStats();
 	}
 }
