@@ -2,4 +2,4 @@
 *.class
 .project
 .settings/
-src/*.class
+./src/*.class
