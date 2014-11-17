@@ -47,9 +47,7 @@ public class Benchmark {
 		// Starting Worker Threads 
 		System.out.println("Starting Threads ..... ");
 		long lStartTime = System.nanoTime();
-		ExecutorService executor = Executors.newFixedThreadPool(_numberThreads);
-		System.out.println("Triggering system.gc()");
-		System.gc();
+		ExecutorService executor = Executors.newFixedThreadPool(_numberThreads);		
 		for(int count = 0; count < _numberThreads; count++){
 			Worker worker = new Worker(_graph, _numberSamplesPerThread, count);
 			executor.execute(worker);
