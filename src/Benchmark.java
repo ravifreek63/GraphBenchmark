@@ -29,7 +29,7 @@ public class Benchmark {
 			_numberThreads = 8;
 		} else {
 			try{
-				_numberThreads = Integer.parseInt(args[2]);
+				_numberThreads = Integer.parseInt(args[2])+1;
 			}catch (NumberFormatException e){
 				System.out.print(e.toString());
 			}
