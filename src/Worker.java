@@ -43,12 +43,12 @@ public class Worker implements Runnable {
 	public void run() {
 		System.out.println("Running Thread -" + Integer.toString(_workerId));
 		if(_workerId==0){		
-			System.out.println("Triggering system.gc()");
+			System.out.println("Triggering system.gc().");
 			System.gc();
-		} else {
+			System.out.println("system.gc() triggered.");
+		} 
 			generateSamples();
 			searchGraph();
-		}
 	}
 	
 	public Worker(Graph g, int samples, int workerId){
