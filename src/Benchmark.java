@@ -50,7 +50,7 @@ public class Benchmark {
 				System.gc();
 			}
 		}
-		/*Statistics.setNumberThreads(_numberThreads);
+		Statistics.setNumberThreads(_numberThreads);
 		// Starting Worker Threads 
 		System.out.println("Starting Threads ..... ");
 		ExecutorService executor = Executors.newFixedThreadPool(_numberThreads);		
@@ -59,7 +59,7 @@ public class Benchmark {
 			executor.execute(worker);
 		}
 		executor.shutdown();
-		while(!executor.isTerminated());*/
+		while(!executor.isTerminated());
 		long lEndTime = System.nanoTime();
 		long difference = lEndTime - lStartTime;
 		Statistics.setGCTime(difference);

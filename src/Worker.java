@@ -19,8 +19,8 @@ public class Worker implements Runnable {
 					System.out.println("Something is wrong. Mismatch in nodeId.");
 				}*/
 			}
-			if((count % 1000) == 0)
-			System.out.println("Count:" + count);
+//			if((count % 1000) == 0)
+//			System.out.println("Count:" + count);
 		}
 		System.out.println("Size:" + allNodes.size());
 	}
