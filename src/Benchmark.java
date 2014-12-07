@@ -60,6 +60,7 @@ public class Benchmark {
 		}
 		executor.shutdown();
 		while(!executor.isTerminated());
+		System.out.println("Workers done ..");
 		long lEndTime = System.nanoTime();
 		long difference = lEndTime - lStartTime;
 		Statistics.setGCTime(difference);
