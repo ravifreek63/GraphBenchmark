@@ -27,8 +27,10 @@ public class Graph {
 		int nodeId = 0;
 		while(true){
 			if(_nodes[nodeId] != null && _nodes[nodeId].getEdgeList().size() > 2){
+				
 				return _nodes[nodeId];
 			}
+			System.out.println("EdgeListSize::" + _nodes[nodeId].getEdgeList().size());
 			nodeId++;
 		}
 	}
@@ -301,6 +303,14 @@ public class Graph {
 				+ ", Verticies traversed :: " + addIndex);
 		return parent;
 	}
+	public void init(int _scale, int _branchFactor, int numNodes){
+		setScale(_scale);
+		setBranchFactor(_branchFactor);
+		setNumNodes(numNodes);
+		setNumberEdges();
+		_edgeList = new int[NUMBER_EDGES][2];
+		_numberThreads = 8;
+	}	
 	
 	public void init(int _scale, int _branchFactor){
 		System.out.println("Setting the parameters.");
@@ -314,11 +324,12 @@ public class Graph {
 	public void setEdge(int from, int to, int index){
 		_edgeList[index][0] = from;
 		_edgeList[index][1] = to;
+//		System.out.println("Setting edge from, to, index:" + from+  "," + to +","+ index);
 	}
 	
 	public Graph(String scale, String branchFactor, String numNodes){
 		try{
-			init(Integer.parseInt(scale), Integer.parseInt(branchFactor)); 
+			init(Integer.parseInt(scale), Integer.parseInt(branchFactor),  Integer.parseInt(numNodes)); 
 			System.out.println("Generating Nodes.");
 			setNumNodes(Integer.parseInt(numNodes));
 			generateNodes();
@@ -335,24 +346,20 @@ public class Graph {
 			System.out.println("Generating Graph Done.");
 			long lEndTime = System.nanoTime();
 			long timeDifference = lEndTime - lStartTime;
-//			System.out.println("Time Taken For Generating the graph : " + 
-//			(double)timeDifference / Math.pow(10, 9));
 			System.out.println("Creating Relationships.");
 			System.out.println("Triggering a full garbage collection.");
 			System.gc();
 			lStartTime = System.nanoTime();				
-			/*executor = Executors.newFixedThreadPool(_numberThreads); 
+			executor = Executors.newFixedThreadPool(_numberThreads); 
 			for(int count = 0; count < _numberThreads; count++){
 				RelationshipGenerator worker = new RelationshipGenerator(this, count);
 				executor.execute(worker);
 			}
 			executor.shutdown();
-			while(!executor.isTerminated());*/
+			while(!executor.isTerminated());
 			lEndTime = System.nanoTime();
 			timeDifference = lEndTime - lStartTime;
 			Statistics.setGraphGenerationTime(timeDifference);
-//			System.out.println("Total time taken for creating the graph in seconds: " 
-//			+ (double)timeDifference/Math.pow(10, 9));
 			System.out.println("Creating Relationships Done.");
 			_root = getRoot();
 		} catch (NumberFormatException e){
