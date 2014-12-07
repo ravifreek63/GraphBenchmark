@@ -24,7 +24,8 @@ public class Benchmark {
 			System.out.println("Insufficient number of arguments");
 			System.exit(-1);
 		}
-		benchmark.createGraph(args[0], args[1]);
+//		benchmark.createGraph(args[0], args[1]);
+		benchmark.createGraphWithNodes("", args[1], args[0]);
 		if(args.length < 3){
 			_numberThreads = 8;
 		} else {
