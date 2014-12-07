@@ -109,9 +109,9 @@ public class Graph {
 	}
 	
 	public int getNumNodes(){
-		if(SCALE==-1)
+//		if(SCALE==-1)
 			return NUM_NODES;
-		return (int)Math.pow ( 2, SCALE);
+//		return (int)Math.pow ( 2, SCALE);
 	}
 	
 	public void setScale(int scale){

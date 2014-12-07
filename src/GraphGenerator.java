@@ -10,6 +10,7 @@ public class GraphGenerator implements Runnable {
 		// TODO Auto-generated method stub
 //		System.out.println("Generating the graph for worker :: " + _workerId);
 		int num_nodes = _graph.getNumNodes();
+		System.out.println("num_nodes:" + num_nodes);
 		int partitionSize = _graph.getEdgeCount() / _graph.getNumberThreads();
 		int partitionStart = _workerId * partitionSize;
 		int partitionEnd = partitionStart + partitionSize;
