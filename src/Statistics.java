@@ -4,6 +4,7 @@ public class Statistics {
 	private static long _graphSearchTime;
 	private static int[] _totalEdgesTraversed;
 	private static int _numberThreads;
+	private static long _gcTime;
 	
 	private static double toSeconds(long v){
 		return ((double)(v)/Math.pow(10, 9));
@@ -21,6 +22,10 @@ public class Statistics {
 		_graphSearchTime = t;
 	}
 
+	public static void setGCTime(long t){
+		_gcTime = t;
+	}
+	
 	public static void incrementEdgesTraversed(int v, int index){
 		_totalEdgesTraversed[index] += v;
 	}
@@ -42,6 +47,7 @@ public class Statistics {
 		System.out.println("Printing Statistics ......");
 		System.out.println("Time taken for graph generation : " + toSeconds(_graphGenerationTime) + " seconds.");
 		System.out.println("Time taken for graph search : " + toSeconds(_graphSearchTime) + " seconds.");
+		System.out.println("Time taken for garbage collection : " + toSeconds(_gcTime) + " seconds.");
 		System.out.println("Total number of edges traversed : " + totalEdgesTraversed());
 		System.out.println("Edge traversal rate : " + (double)totalEdgesTraversed()/toMilliseconds(_graphSearchTime));
 	}

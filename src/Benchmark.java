@@ -43,20 +43,26 @@ public class Benchmark {
 				System.out.print(e.toString());
 			}
 		}	
-		Statistics.setNumberThreads(_numberThreads);
+		long lStartTime = System.nanoTime();
+		if(args.length==5){
+			if(args[4].trim().equals("1")){	
+				System.out.println("Triggering Garbage Collection");
+				System.gc();
+			}
+		}
+		/*Statistics.setNumberThreads(_numberThreads);
 		// Starting Worker Threads 
 		System.out.println("Starting Threads ..... ");
-		long lStartTime = System.nanoTime();
 		ExecutorService executor = Executors.newFixedThreadPool(_numberThreads);		
 		for(int count = 0; count < _numberThreads; count++){
 			Worker worker = new Worker(_graph, _numberSamplesPerThread, count);
 			executor.execute(worker);
 		}
 		executor.shutdown();
-		while(!executor.isTerminated());
+		while(!executor.isTerminated());*/
 		long lEndTime = System.nanoTime();
 		long difference = lEndTime - lStartTime;
-		Statistics.setGraphSearchTime(difference);
+		Statistics.setGCTime(difference);
 		Statistics.printStats();
 	}
 }
