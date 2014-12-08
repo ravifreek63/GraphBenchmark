@@ -317,7 +317,7 @@ public class Graph {
 		setScale(_scale);
 		setBranchFactor(_branchFactor);
 		setNumberEdges();
-		_edgeList = new int[NUMBER_EDGES][2];
+//		_edgeList = new int[NUMBER_EDGES][2];
 		_numberThreads = 8;
 	}
 	
@@ -337,13 +337,13 @@ public class Graph {
 			System.out.println("Generating Graph.");
 			long lStartTime = System.nanoTime();
 			ExecutorService executor = Executors.newFixedThreadPool(_numberThreads); 
-			for(int count = 0; count < _numberThreads; count++){
+			/*for(int count = 0; count < _numberThreads; count++){
 				GraphGenerator worker = new GraphGenerator(this, count);
 				executor.execute(worker);
 			}
 			executor.shutdown();
 			while(!executor.isTerminated());
-			System.out.println("Generating Graph Done.");
+			System.out.println("Generating Graph Done.");*/
 			long lEndTime = System.nanoTime();
 			long timeDifference = lEndTime - lStartTime;
 //			System.out.println("Creating Relationships.");
