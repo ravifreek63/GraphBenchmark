@@ -19,12 +19,6 @@ public class Benchmark {
 	}	
 	
 	public static void main(String[] args){
-		if(args.length==5){
-			if(args[4].trim().equals("1")){	
-				System.out.println("Triggering Garbage Collection");
-				System.gc();
-			}
-		}
 		Benchmark benchmark = new Benchmark();
 		if(args.length<3){
 			System.out.println("Insufficient number of arguments");
@@ -36,9 +30,9 @@ public class Benchmark {
 			_numberThreads = 8;
 		} else {
 			try{
-				_numberThreads = Integer.parseInt(args[2]);
+			_numberThreads = Integer.parseInt(args[2]);
 			}catch (NumberFormatException e){
-				System.out.print(e.toString());
+			System.out.print(e.toString());
 			}
 		}
 		if(args.length < 4){
@@ -60,13 +54,13 @@ public class Benchmark {
 		Statistics.setNumberThreads(_numberThreads);
 		// Starting Worker Threads 
 		System.out.println("Starting Threads ..... ");
-		/*ExecutorService executor = Executors.newFixedThreadPool(_numberThreads);		
+		ExecutorService executor = Executors.newFixedThreadPool(_numberThreads);		
 		for(int count = 0; count < _numberThreads; count++){
 			Worker worker = new Worker(_graph, _numberSamplesPerThread, count);
 			executor.execute(worker);
 		}
 		executor.shutdown();
-		while(!executor.isTerminated());*/
+		while(!executor.isTerminated());
 		System.out.println("Workers done ..");
 		long lEndTime = System.nanoTime();
 		long difference = lEndTime - lStartTime;
