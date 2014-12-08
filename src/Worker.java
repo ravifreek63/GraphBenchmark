@@ -27,7 +27,7 @@ public class Worker implements Runnable {
 	
 	private void generateSamples(){
 		System.out.println("Generating Samples For Thread -" + _workerId);
-		int numberNodes = _graph.getNumNodes();
+		int numberNodes = (int)((double)_graph.getNumNodes() * 0.1);
 		Random random = new Random();
 		int sample = -1;
 		_samples = new int[_numberSamplesPerThread];

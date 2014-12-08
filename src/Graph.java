@@ -317,14 +317,12 @@ public class Graph {
 		setScale(_scale);
 		setBranchFactor(_branchFactor);
 		setNumberEdges();
-//		_edgeList = new int[NUMBER_EDGES][2];
 		_numberThreads = 8;
 	}
 	
 	public void setEdge(int from, int to, int index){
 		_edgeList[index][0] = from;
 		_edgeList[index][1] = to;
-//		System.out.println("Setting edge from, to, index:" + from+  "," + to +","+ index);
 	}
 	
 	public Graph(String scale, String branchFactor, String numNodes){
