@@ -48,7 +48,7 @@ public class Graph {
 		ArrayList<Node> list1 = new ArrayList<Node>(); // variable 5 is list1
 		ArrayList<Node> list2 = new ArrayList<Node>(); // variable 6 is list2 
 		// (aload_0) is called to get the NUM_NODES field here - Object Access #1
-		HashMap<Integer, Boolean> seenNodes = new HashMap(); 
+		HashMap<Integer, Boolean> seenNodes = new HashMap<Integer, Boolean>(); 
 		Node childNode = null; // variable 8 is childNode
 		list1.add(_root); // Object Access #2, field 9 is root, (aload_0)
 		seenNodes.put(_root.getNodeId(), true);
