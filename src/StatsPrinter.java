@@ -35,7 +35,9 @@ public class StatsPrinter implements Runnable {
 					counter++;
 					rate = (double)Statistics.totalEdgesTraversed()/counter; 
 				System.out.println("Queries Done:" + Statistics.totalQueriesExecuted()
-						+ ", EdgesTraversed: " + Statistics.totalEdgesTraversed() + ", rate:" + rate);
+						+ ", EdgesTraversed: " + Statistics.totalEdgesTraversed() + ", rate:" + rate + " counter:" +counter);
+				if(counter>100)
+					System.exit(-1);
 				}
 				System.out.println("Queries Done:" + Statistics.totalQueriesExecuted()
 						+ ", EdgesTraversed: " + Statistics.totalEdgesTraversed());
