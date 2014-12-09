@@ -42,7 +42,8 @@ public class Graph {
 		ArrayList<Node> list2 = new ArrayList<Node>(); // variable 6 is list2 
 		ArrayList<Node> exploredNodes = new ArrayList<Node>(); 
 		// (aload_0) is called to get the NUM_NODES field here - Object Access #1
-		boolean[] seenNode = new boolean[NUM_NODES]; // variable 7 is seenNode  
+		boolean[] seenNode = new boolean[NUM_NODES]; // variable 7 is seenNode
+		ArrayList<Integer> seenNodes = new ArrayList<Integer>(); 
 		Node childNode = null; // variable 8 is childNode 
 		list1.add(_root); // Object Access #2, field 9 is root, (aload_0)
 		//  Object Access #3 invoking method on list1 object(aload n)
@@ -57,9 +58,9 @@ public class Graph {
 					exploredNodes.addAll(childrenList);
 				edgesTraversed += childrenList.size();
 				for (Node child : childrenList){
-					if(!seenNode[child.getNodeId()]){
+					if(!seenNodes.contains(child.getNodeId())){
 						list2.add(child);
-						seenNode[child.getNodeId()] = true;
+						seenNodes.add(child.getNodeId());
 						uniqueNodesSeen++;
 				} 
 			}
@@ -77,9 +78,9 @@ public class Graph {
 					exploredNodes.addAll(childrenList);
 				edgesTraversed += childrenList.size();
 				for (Node child : childrenList){
-					if(!seenNode[child.getNodeId()]){
+				  if(!seenNodes.contains(child.getNodeId())){
 						list1.add(child);
-						seenNode[child.getNodeId()] = true;
+						seenNodes.add(child.getNodeId());
 						uniqueNodesSeen++;
 				} 
 			}

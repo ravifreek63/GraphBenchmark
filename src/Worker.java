@@ -32,7 +32,6 @@ public class Worker implements Runnable {
 		int sample = -1;
 		_samples = new int[_numberSamplesPerThread];
 		for (int count = 0; count < _numberSamplesPerThread; count++){
-//			System.out.println("Count:" + count);
 			do{
 				sample = random.nextInt(numberNodes);
 			} while(_graph.getNumberEdges(sample) == 0 && sample != _graph.getRoot().getNodeId());
