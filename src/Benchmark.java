@@ -47,7 +47,6 @@ public class Benchmark {
 				System.out.print(e.toString());
 			}
 		}	
-		long lStartTime = System.nanoTime();
 		if(args.length==5){
 			if(args[4].trim().equals("1")){	
 				System.out.println("Triggering Garbage Collection");
@@ -57,6 +56,7 @@ public class Benchmark {
 		Statistics.setNumberThreads(_numberThreads);
 		// Starting Worker Threads 
 		System.out.println("Starting Threads ..... ");
+		long lStartTime = System.nanoTime();
 		ExecutorService executor = Executors.newFixedThreadPool(_numberThreads);		
 		for(int count = 0; count < _numberThreads; count++){
 			Worker worker = new Worker(_graph, _numberSamplesPerThread, count);
@@ -67,7 +67,7 @@ public class Benchmark {
 		System.out.println("Workers done ..");
 		long lEndTime = System.nanoTime();
 		long difference = lEndTime - lStartTime;
-		Statistics.setGCTime(difference);
+		Statistics.setGraphSearchTime(difference);
 		Statistics.printStats();
 	}
 }

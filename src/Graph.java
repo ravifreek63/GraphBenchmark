@@ -127,6 +127,10 @@ public class Graph {
 		SCALE = scale;
 	}
 	 
+	public int getBranchFactor(){
+		return BRANCH_FACTOR;
+	}
+	
 	public void setBranchFactor(int factor){
 		BRANCH_FACTOR = factor;	
 	}
@@ -352,9 +356,6 @@ public class Graph {
 			System.out.println("Generating Graph Done.");*/
 			long lEndTime = System.nanoTime();
 			long timeDifference = lEndTime - lStartTime;
-//			System.out.println("Creating Relationships.");
-//			System.out.println("Triggering a full garbage collection.");
-//			System.gc();
 			lStartTime = System.nanoTime();				
 			executor = Executors.newFixedThreadPool(_numberThreads); 
 			for(int count = 0; count < _numberThreads; count++){
@@ -379,7 +380,7 @@ public class Graph {
 				init(Integer.parseInt(scale), Integer.parseInt(branchFactor)); 
 				System.out.println("Generating Nodes.");
 				generateNodes();
-				System.out.println("Generating Nodes Done.");
+				System.out.print("Generating Nodes Done.");
 				System.out.println("Generating Graph.");
 				long lStartTime = System.nanoTime();
 				ExecutorService executor = Executors.newFixedThreadPool(_numberThreads); 
@@ -392,11 +393,7 @@ public class Graph {
 				System.out.println("Generating Graph Done.");
 				long lEndTime = System.nanoTime();
 				long timeDifference = lEndTime - lStartTime;
-//				System.out.println("Time Taken For Generating the graph : " + 
-//				(double)timeDifference / Math.pow(10, 9));
 				System.out.println("Creating Relationships.");
-				//System.out.println("Triggering a full garbage collection.");
-//				System.gc();
 				lStartTime = System.nanoTime();				
 				executor = Executors.newFixedThreadPool(_numberThreads); 
 				for(int count = 0; count < _numberThreads; count++){
@@ -408,8 +405,6 @@ public class Graph {
 				lEndTime = System.nanoTime();
 				timeDifference = lEndTime - lStartTime;
 				Statistics.setGraphGenerationTime(timeDifference);
-//				System.out.println("Total time taken for creating the graph in seconds: " 
-//				+ (double)timeDifference/Math.pow(10, 9));
 				System.out.println("Creating Relationships Done.");
 				_root = getRoot();
 			} catch (NumberFormatException e){
