@@ -47,29 +47,26 @@ public class Graph {
 		ArrayList<Node> childrenList; //
 		ArrayList<Node> list1 = new ArrayList<Node>(); // variable 5 is list1
 		ArrayList<Node> list2 = new ArrayList<Node>(); // variable 6 is list2 
-		ArrayList<Node> exploredNodes = new ArrayList<Node>(); 
 		// (aload_0) is called to get the NUM_NODES field here - Object Access #1
-		ArrayList<Integer> seenNodes = new ArrayList<Integer>(); 
+		HashMap<Integer, Boolean> seenNodes = new HashMap(); 
 		Node childNode = null; // variable 8 is childNode
 		list1.add(_root); // Object Access #2, field 9 is root, (aload_0)
-		seenNodes.add(_root.getNodeId());
+		seenNodes.put(_root.getNodeId(), true);
 		//  Object Access #3 invoking method on list1 object(aload n)
-		int uniqueNodesSeen = 0;
+//		int uniqueNodesSeen = 0;
 		boolean found = false; // found is variable at position 10 
 		// Iterate over list1 and add children to list2
 		while(!found){
-			list2 = new ArrayList<Node>();
+			list2.clear();
 			for(Node currentNode:  list1){				
 				childrenList = currentNode.getEdgeList();
-				if(childrenList != null)
-					exploredNodes.addAll(childrenList);
 				Statistics.incrementEdgesTraversed(childrenList.size(), workerId);
 				edgesTraversed += childrenList.size();
 				for (Node child : childrenList){
-					if(!seenNodes.contains(child.getNodeId())){
+					if(seenNodes.get(child.getNodeId()) == null){
 						list2.add(child);
-						seenNodes.add(child.getNodeId());
-						uniqueNodesSeen++;
+					seenNodes.put(child.getNodeId(), true);
+//						uniqueNodesSeen++;
 				} 
 			}
 				childNode = currentNode.getChildIfExists(searchNodeId);
@@ -79,18 +76,16 @@ public class Graph {
 				}    
 				    
 			}
-			list1 = new ArrayList<Node>();
+			list1.clear();
 			for(Node currentNode: list2){				
 				childrenList = currentNode.getEdgeList();
-				if(childrenList != null)
-					exploredNodes.addAll(childrenList);
 				Statistics.incrementEdgesTraversed(childrenList.size(), workerId);
 				edgesTraversed += childrenList.size();
 				for (Node child : childrenList){
-				  if(!seenNodes.contains(child.getNodeId())){
+					if(seenNodes.get(child.getNodeId()) == null){
 						list1.add(child);
-						seenNodes.add(child.getNodeId());
-						uniqueNodesSeen++;
+						seenNodes.put(child.getNodeId(), true);
+//						uniqueNodesSeen++;
 				} 
 			}
 				childNode = currentNode.getChildIfExists(searchNodeId);
