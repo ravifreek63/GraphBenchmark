@@ -9,20 +9,15 @@ public class Worker implements Runnable {
 	private int _edgesTraversed;
 	
 	private void searchGraph(){
-		ArrayList<Node> allNodes = new ArrayList<Node>();
 		System.out.println("Searching Graph For Thread -" + _workerId);
 		for (int count = 0; count < _numberSamplesPerThread; count++){
-			ArrayList<Node> nodes = _graph.find(_samples[count], _workerId);
-			if(nodes != null){
-				allNodes.addAll(nodes);
+				int edgesTraversed = _graph.find(_samples[count], _workerId);
+				Statistics.incrementEdgesTraversed(edgesTraversed, _workerId);
 			}
 		}
-		System.out.println("Size:" + allNodes.size());
-	}
 	
 	private void generateSamples(){
 		double frac = (double)_graph.getFraction()/100;
-		System.out.println("Generating Samples For Thread -" + _workerId + ", fraction ::" + frac);
 		int numberNodes = (int)((double)_graph.getNumNodes() * frac);
 		Random random = new Random();
 		int sample = -1;
@@ -30,7 +25,7 @@ public class Worker implements Runnable {
 		for (int count = 0; count < _numberSamplesPerThread; count++){
 			do{
 				sample = random.nextInt(numberNodes);
-			} while(sample != _graph.getRoot().getNodeId());
+			} while(sample == _graph.getRoot().getNodeId());
 			_samples[count] = sample;
 		}
 	}

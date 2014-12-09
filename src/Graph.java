@@ -41,7 +41,7 @@ public class Graph {
 		return _root;
 	}
 	
-	public ArrayList<Node> find(int searchNodeId, int workerId){
+	public int find(int searchNodeId, int workerId){
 		int edgesTraversed = 0; // variable 3 is edgesTraversed
 		ArrayList<Node> childrenList; //
 		ArrayList<Node> list1 = new ArrayList<Node>(); // variable 5 is list1
@@ -50,8 +50,8 @@ public class Graph {
 		// (aload_0) is called to get the NUM_NODES field here - Object Access #1
 		ArrayList<Integer> seenNodes = new ArrayList<Integer>(); 
 		Node childNode = null; // variable 8 is childNode
-		
 		list1.add(_root); // Object Access #2, field 9 is root, (aload_0)
+		seenNodes.add(_root.getNodeId());
 		//  Object Access #3 invoking method on list1 object(aload n)
 		int uniqueNodesSeen = 0;
 		boolean found = false; // found is variable at position 10 
@@ -101,7 +101,7 @@ public class Graph {
 			}
 		}
 			Statistics.incrementEdgesTraversed(edgesTraversed, workerId);
-			return exploredNodes;
+			return edgesTraversed;
 	}
 	
 	public int getNumberEdges(int nodeId){
@@ -213,13 +213,7 @@ public class Graph {
 	}
 	
 	public void createEdgeBetween(int from, int to){
-//		_nodes[from].getEdgeList().add(_nodes[to]);
-		_nodes[from].getEdgeList().add(_nodes[from]);
-//		_nodes[from].getEdgeList().remove(0);
-//		if(_nodes[from].getEdgeList().add(_nodes[from]) == null){
-//			System.exit(1);
-//		}
-		// adding an edge to the from node to the to node
+		_nodes[from].getEdgeList().add(_nodes[to]);
 	}
 	
 	public void createRelationships(){
