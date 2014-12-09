@@ -15,6 +15,7 @@ public class Graph {
 	private int[][] _edgeList;
 	private int _numberThreads; // number of threads for the graph generation
 	private int _fraction;
+	private StatsPrinter _statsPrinter;
 	
 	public int getFraction(){return _fraction;}
 	public int getEdge(int index, int number){

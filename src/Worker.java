@@ -13,6 +13,8 @@ public class Worker implements Runnable {
 		System.out.println("Searching Graph For Thread -" + _workerId);
 		for (int count = 0; count < _numberSamplesPerThread; count++){
 				int edgesTraversed = _graph.find(_samples[count], _workerId);
+				if(edgesTraversed<0)
+					break;
 				Statistics.incrementQueriesDone(1, _workerId);
 			}
 		}

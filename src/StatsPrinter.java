@@ -27,11 +27,15 @@ public class StatsPrinter implements Runnable {
 		}
 		
 	    public  void run() {
+	    	int counter = 0;
+	    	double rate;
 	        try {
-				while(shouldStop() == false){
+				while(shouldStop() == false){					
 					Thread.sleep(1000);
+					counter++;
+					rate = (double)Statistics.totalEdgesTraversed()/counter; 
 				System.out.println("Queries Done:" + Statistics.totalQueriesExecuted()
-						+ ", EdgesTraversed: " + Statistics.totalEdgesTraversed());
+						+ ", EdgesTraversed: " + Statistics.totalEdgesTraversed() + ", rate:" + rate);
 				}
 				System.out.println("Queries Done:" + Statistics.totalQueriesExecuted()
 						+ ", EdgesTraversed: " + Statistics.totalEdgesTraversed());
