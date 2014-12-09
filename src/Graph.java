@@ -25,16 +25,20 @@ public class Graph {
 		return _numberThreads;
 	}
 	
-	public Node getRoot() { 
+	public void setRoot() {
 		int nodeId = 0;
 		while(true){
 			if(_nodes[nodeId] != null && _nodes[nodeId].getEdgeList().size() > 2){
-				
-				return _nodes[nodeId];
+				_root = _nodes[nodeId];
+				break;
 			}
 			System.out.println("EdgeListSize::" + _nodes[nodeId].getEdgeList().size());
 			nodeId++;
 		}
+	}
+	
+	public Node getRoot() { 
+		return _root;
 	}
 	
 	public ArrayList<Node> find(int searchNodeId, int workerId){
@@ -44,9 +48,9 @@ public class Graph {
 		ArrayList<Node> list2 = new ArrayList<Node>(); // variable 6 is list2 
 		ArrayList<Node> exploredNodes = new ArrayList<Node>(); 
 		// (aload_0) is called to get the NUM_NODES field here - Object Access #1
-		boolean[] seenNode = new boolean[NUM_NODES]; // variable 7 is seenNode
 		ArrayList<Integer> seenNodes = new ArrayList<Integer>(); 
-		Node childNode = null; // variable 8 is childNode 
+		Node childNode = null; // variable 8 is childNode
+		
 		list1.add(_root); // Object Access #2, field 9 is root, (aload_0)
 		//  Object Access #3 invoking method on list1 object(aload n)
 		int uniqueNodesSeen = 0;
@@ -363,7 +367,8 @@ public class Graph {
 			timeDifference = lEndTime - lStartTime;
 			Statistics.setGraphGenerationTime(timeDifference);
 			System.out.println("Creating Relationships Done.");
-			_root = getRoot();
+			setRoot();
+			_nodes = null;
 		} catch (NumberFormatException e){
 			System.out.print(e.toString());
 		}
