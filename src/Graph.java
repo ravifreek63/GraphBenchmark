@@ -14,7 +14,9 @@ public class Graph {
 	private Node[]_nodes;
 	private int[][] _edgeList;
 	private int _numberThreads; // number of threads for the graph generation
+	private int _fraction;
 	
+	public int getFraction(){return _fraction;}
 	public int getEdge(int index, int number){
 		return _edgeList[index][number];
 	}
@@ -326,8 +328,9 @@ public class Graph {
 		_edgeList[index][1] = to;
 	}
 	
-	public Graph(String scale, String branchFactor, String numNodes){
+	public Graph(String scale, String branchFactor, String numNodes, int fraction){
 		try{
+			_fraction = fraction;
 			init(Integer.parseInt(scale), Integer.parseInt(branchFactor),  Integer.parseInt(numNodes)); 
 			System.out.println("Generating Nodes.");
 			setNumNodes(Integer.parseInt(numNodes));

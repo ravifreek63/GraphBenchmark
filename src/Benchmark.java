@@ -14,18 +14,21 @@ public class Benchmark {
 		_graph = new Graph(scale, branchFactor);
 	}
 	
-	public void createGraphWithNodes(String scale, String branchFactor, String numNodes){
-		_graph = new Graph("-1", branchFactor, numNodes);
+	public void createGraphWithNodes(String scale, String branchFactor, String numNodes, int fraction){
+		_graph = new Graph("-1", branchFactor, numNodes, fraction);
 	}	
 	
 	public static void main(String[] args){
 		Benchmark benchmark = new Benchmark();
+		int fraction = 1;
+		if(args.length == 6){
+			fraction = Integer.parseInt(args[5]);
+		}
 		if(args.length<3){
 			System.out.println("Insufficient number of arguments");
 			System.exit(-1);
 		}
-//		benchmark.createGraph(args[0], args[1]);
-		benchmark.createGraphWithNodes("", args[1], args[0]);
+		benchmark.createGraphWithNodes("", args[1], args[0], fraction);
 		if(args.length < 3){
 			_numberThreads = 8;
 		} else {
