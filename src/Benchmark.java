@@ -47,7 +47,7 @@ public class Benchmark {
 				System.out.print(e.toString());
 			}
 		}	
-		if(args.length==5){
+		if(args.length>=5){
 			if(args[4].trim().equals("1")){	
 				System.out.println("Triggering Garbage Collection");
 				System.gc();
