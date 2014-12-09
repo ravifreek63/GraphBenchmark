@@ -15,12 +15,7 @@ public class Worker implements Runnable {
 			ArrayList<Node> nodes = _graph.find(_samples[count], _workerId);
 			if(nodes != null){
 				allNodes.addAll(nodes);
-				/*if(node.getNodeId() != _samples[count]){
-					System.out.println("Something is wrong. Mismatch in nodeId.");
-				}*/
 			}
-//			if((count % 1000) == 0)
-//			System.out.println("Count:" + count);
 		}
 		System.out.println("Size:" + allNodes.size());
 	}
