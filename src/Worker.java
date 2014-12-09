@@ -7,12 +7,13 @@ public class Worker implements Runnable {
 	private int[] _samples;
 	private int _workerId;
 	private int _edgesTraversed;
+	private StatsPrinter _statsPrinter;
 	
 	private void searchGraph(){
 		System.out.println("Searching Graph For Thread -" + _workerId);
 		for (int count = 0; count < _numberSamplesPerThread; count++){
 				int edgesTraversed = _graph.find(_samples[count], _workerId);
-				Statistics.incrementEdgesTraversed(edgesTraversed, _workerId);
+				Statistics.incrementQueriesDone(1, _workerId);
 			}
 		}
 	
@@ -33,14 +34,20 @@ public class Worker implements Runnable {
 	@Override
 	public void run() {
 		System.out.println("Running Thread -" + Integer.toString(_workerId));
+		if(_workerId==0){			
+			_statsPrinter.run();
+		} else {
 			generateSamples();
 			searchGraph();
+			_statsPrinter.threadDone(_workerId);
+		}
 	}
 	
-	public Worker(Graph g, int samples, int workerId){
+	public Worker(Graph g, int samples, int workerId, StatsPrinter s){
 		_graph = g; 
 		_numberSamplesPerThread = samples;
 		_workerId = workerId;
 		_edgesTraversed = 0;
+		_statsPrinter =s ;
 	}
 }

@@ -5,6 +5,8 @@ public class Statistics {
 	private static int[] _totalEdgesTraversed;
 	private static int _numberThreads;
 	private static long _gcTime;
+	private static int[] _totalQueriesDone;
+
 	
 	private static double toSeconds(long v){
 		return ((double)(v)/Math.pow(10, 9));
@@ -26,16 +28,29 @@ public class Statistics {
 		_gcTime = t;
 	}
 	
+	public static int totalQueriesExecuted(){
+		int sum = 0;
+		for(int index = 0; index < _numberThreads; index++){
+			sum += _totalQueriesDone[index];
+		}
+		return sum;
+	}
+	
+	public static void incrementQueriesDone(int v, int index){
+		_totalQueriesDone[index] += v;
+	}
+	
 	public static void incrementEdgesTraversed(int v, int index){
 		_totalEdgesTraversed[index] += v;
 	}
-	
+	public static int getNumberThreads(){ return _numberThreads; }
 	public static void setNumberThreads(int n){
 		_numberThreads = n;
 		_totalEdgesTraversed = new int[_numberThreads];
+		_totalQueriesDone = new int[_numberThreads];		
 	}
 	
-	private static int totalEdgesTraversed(){
+	static int totalEdgesTraversed(){
 		int sum = 0;
 		for(int count = 0; count < _numberThreads; count++){
 			sum += _totalEdgesTraversed[count];

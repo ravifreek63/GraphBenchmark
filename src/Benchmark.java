@@ -53,13 +53,14 @@ public class Benchmark {
 				System.gc();
 			}
 		}
-		Statistics.setNumberThreads(_numberThreads);
+		Statistics.setNumberThreads(_numberThreads+1);
+		StatsPrinter s = new StatsPrinter(_numberThreads+1);
 		// Starting Worker Threads 
 		System.out.println("Starting Threads ..... ");
 		long lStartTime = System.nanoTime();
-		ExecutorService executor = Executors.newFixedThreadPool(_numberThreads);		
-		for(int count = 0; count < _numberThreads; count++){
-			Worker worker = new Worker(_graph, _numberSamplesPerThread, count);
+		ExecutorService executor = Executors.newFixedThreadPool(_numberThreads+1);		
+		for(int count = 0; count < _numberThreads+1; count++){
+			Worker worker = new Worker(_graph, _numberSamplesPerThread, count, s);
 			executor.execute(worker);
 		}
 		executor.shutdown();

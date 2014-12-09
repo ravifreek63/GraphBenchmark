@@ -62,6 +62,7 @@ public class Graph {
 				childrenList = currentNode.getEdgeList();
 				if(childrenList != null)
 					exploredNodes.addAll(childrenList);
+				Statistics.incrementEdgesTraversed(childrenList.size(), workerId);
 				edgesTraversed += childrenList.size();
 				for (Node child : childrenList){
 					if(!seenNodes.contains(child.getNodeId())){
@@ -82,6 +83,7 @@ public class Graph {
 				childrenList = currentNode.getEdgeList();
 				if(childrenList != null)
 					exploredNodes.addAll(childrenList);
+				Statistics.incrementEdgesTraversed(childrenList.size(), workerId);
 				edgesTraversed += childrenList.size();
 				for (Node child : childrenList){
 				  if(!seenNodes.contains(child.getNodeId())){
@@ -100,7 +102,6 @@ public class Graph {
 				break;
 			}
 		}
-			Statistics.incrementEdgesTraversed(edgesTraversed, workerId);
 			return edgesTraversed;
 	}
 	
