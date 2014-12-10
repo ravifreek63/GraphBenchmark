@@ -8,7 +8,7 @@ public class Statistics {
 	private static int[] _totalQueriesDone;
 
 	
-	private static double toSeconds(long v){
+	public static double toSeconds(long v){
 		return ((double)(v)/Math.pow(10, 9));
 	}
 	
