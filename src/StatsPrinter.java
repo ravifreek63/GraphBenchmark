@@ -41,7 +41,7 @@ public class StatsPrinter implements Runnable {
 					rate = (double)Statistics.totalEdgesTraversed()/timeDifference; 
 				System.out.println("Queries Done:" + Statistics.totalQueriesExecuted()
 						+ ", EdgesTraversed: " + Statistics.totalEdgesTraversed() + ", rate:" + rate + " time:" +timeDifference);
-				if(timeDifference>100)
+				if(timeDifference>300)
 					System.exit(-1);
 				}
 				System.out.println("Queries Done:" + Statistics.totalQueriesExecuted()
