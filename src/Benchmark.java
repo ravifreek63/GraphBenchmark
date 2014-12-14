@@ -57,7 +57,7 @@ public class Benchmark {
 			}
 		}
 		Statistics.setNumberThreads(_numberThreads+1);
-		StatsPrinter s = new StatsPrinter(_numberThreads+1);
+		StatsPrinter s = new StatsPrinter(_numberThreads+1, totalTime);
 		// Starting Worker Threads 
 		System.out.println("Starting Threads ..... ");
 		long lStartTime = System.nanoTime();
