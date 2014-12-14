@@ -18,10 +18,13 @@ public class Benchmark {
 		_graph = new Graph("-1", branchFactor, numNodes, fraction);
 	}	
 	
-	public static void main(String[] args){
+	public static void main(String[] args){		
 		Benchmark benchmark = new Benchmark();
+		int totalTime =300;
+		if(args.length >= 7)
+			totalTime = Integer.parseInt(args[6]);
 		int fraction = 1;
-		if(args.length == 6){
+		if(args.length >= 6){
 			fraction = Integer.parseInt(args[5]);
 		}
 		if(args.length<3){

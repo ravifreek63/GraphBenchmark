@@ -3,12 +3,14 @@ public class StatsPrinter implements Runnable {
 		private  boolean[] _threadsDone;
 		private  int _numberThreads;
 		private long _startTime;
+		private int _totalTime;
 		
 		
-		public StatsPrinter(int numberThreads){
+		public StatsPrinter(int numberThreads, int time){
 			_numberThreads = numberThreads;
 			_threadsDone = new boolean[numberThreads];
 			_threadsDone[0] = true;
+			_totalTime = time;
 		}
 		
 		public  void threadDone(int index){
@@ -41,7 +43,7 @@ public class StatsPrinter implements Runnable {
 					rate = (double)Statistics.totalEdgesTraversed()/timeDifference; 
 				System.out.println("Queries Done:" + Statistics.totalQueriesExecuted()
 						+ ", EdgesTraversed: " + Statistics.totalEdgesTraversed() + ", rate:" + rate + " time:" +timeDifference);
-				if(timeDifference>300)
+				if(timeDifference>_totalTime)
 					System.exit(-1);
 				}
 				System.out.println("Queries Done:" + Statistics.totalQueriesExecuted()
