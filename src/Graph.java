@@ -310,7 +310,6 @@ public class Graph {
 		setBranchFactor(_branchFactor);
 		setNumNodes(numNodes);
 		setNumberEdges();
-//		_edgeList = new int[NUMBER_EDGES][2];
 		_numberThreads = 8;
 	}	
 	
@@ -360,7 +359,7 @@ public class Graph {
 			Statistics.setGraphGenerationTime(timeDifference);
 			System.out.println("Creating Relationships Done.");
 			setRoot();
-			_nodes = null;
+//			_nodes = null;
 		} catch (NumberFormatException e){
 			System.out.print(e.toString());
 		}
