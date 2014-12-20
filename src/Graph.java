@@ -276,7 +276,7 @@ public class Graph {
 		Node currentNode;
 		for (count = 0; count < NUM_NODES; count++){
 			parent[count] = NULL_NODE;
-			vertices[currentIndex] = new Node(NULL_NODE);
+			vertices[currentIndex] = new Node(NULL_NODE, 0);
 		}
 		
 		vertices[addIndex] = _nodes[source];
