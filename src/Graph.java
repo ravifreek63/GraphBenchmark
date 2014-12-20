@@ -205,7 +205,7 @@ public class Graph {
 		System.out.println("Generating " + NUM_NODES + " nodes.");
 		_nodes = new Node[NUM_NODES];		
 		for (int count = 0; count < NUM_NODES; count++){
-			_nodes[count] = new Node(count);
+			_nodes[count] = new Node(count, getBranchFactor());
 		}		
 	}
 	
@@ -310,7 +310,7 @@ public class Graph {
 		setBranchFactor(_branchFactor);
 		setNumNodes(numNodes);
 		setNumberEdges();
-		_edgeList = new int[NUMBER_EDGES][2];
+//		_edgeList = new int[NUMBER_EDGES][2];
 		_numberThreads = 8;
 	}	
 	

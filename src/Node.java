@@ -8,9 +8,9 @@ public class Node {
 	public int getNodeId() { return _nodeId; }
 	public void setNodeId(int nodeId) { _nodeId = nodeId; }
 	public ArrayList<Node> getEdgeList() { return _edgeList; }
-	public Node(int id){
+	public Node(int id, int branchFactor){
 		setNodeId(id);
-		_edgeList = new ArrayList<Node>();
+		_edgeList = new ArrayList<Node>(branchFactor);
 	}
 	public boolean isParentOf(int nodeId){
 		for (Node child : _edgeList){
