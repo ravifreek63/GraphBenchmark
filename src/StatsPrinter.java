@@ -31,7 +31,6 @@ public class StatsPrinter implements Runnable {
 		}
 		
 	    public  void run() {
-	    	int counter = 0;
 	    	_startTime = System.nanoTime();
 	    	double timeDifference;
 	    	double rate;
@@ -43,7 +42,7 @@ public class StatsPrinter implements Runnable {
 					rate = (double)Statistics.totalEdgesTraversed()/timeDifference; 
 				System.out.println("Queries Done:" + Statistics.totalQueriesExecuted()
 						+ ", EdgesTraversed: " + Statistics.totalEdgesTraversed() + ", rate:" + rate + " time:" +timeDifference);
-				if(timeDifference>_totalTime)
+				if(timeDifference>_totalTime || Statistics.totalEdgesTraversed() > Benchmark._numberEdgesTraversed)
 					System.exit(-1);
 				}
 				System.out.println("Queries Done:" + Statistics.totalQueriesExecuted()

@@ -5,6 +5,7 @@ public class Benchmark {
 	private static Graph _graph;
 	private static int _numberThreads;
 	private static int _numberSamplesPerThread;
+	public static int _numberEdgesTraversed;
 	
 	public Graph getGraph(){
 		return _graph;
@@ -21,6 +22,10 @@ public class Benchmark {
 	public static void main(String[] args){		
 		Benchmark benchmark = new Benchmark();
 		int totalTime =300;
+		_numberEdgesTraversed = -1;
+		if(args.length >= 8){
+		_numberEdgesTraversed = Integer.parseInt(args[7]);
+		}
 		if(args.length >= 7)
 			totalTime = Integer.parseInt(args[6]);
 		int fraction = 1;

@@ -53,20 +53,18 @@ public class Graph {
 		list1.add(_root); // Object Access #2, field 9 is root, (aload_0)
 		seenNodes.put(_root.getNodeId(), true);
 		//  Object Access #3 invoking method on list1 object(aload n)
-//		int uniqueNodesSeen = 0;
 		boolean found = false; // found is variable at position 10 
 		// Iterate over list1 and add children to list2
 		while(!found){
 			list2.clear();
 			for(Node currentNode:  list1){				
 				childrenList = currentNode.getEdgeList();
-				Statistics.incrementEdgesTraversed(childrenList.size(), workerId);
+				Statistics.incrementEdgesTraversed(childrenList.size(), workerId); // cache-bouncing 
 				edgesTraversed += childrenList.size();
 				for (Node child : childrenList){
 					if(seenNodes.get(child.getNodeId()) == null){
 						list2.add(child);
 					seenNodes.put(child.getNodeId(), true);
-//						uniqueNodesSeen++;
 				} 
 			}
 				childNode = currentNode.getChildIfExists(searchNodeId);
@@ -85,7 +83,6 @@ public class Graph {
 					if(seenNodes.get(child.getNodeId()) == null){
 						list1.add(child);
 						seenNodes.put(child.getNodeId(), true);
-//						uniqueNodesSeen++;
 				} 
 			}
 				childNode = currentNode.getChildIfExists(searchNodeId);
