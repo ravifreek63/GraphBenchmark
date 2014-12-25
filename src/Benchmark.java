@@ -22,7 +22,7 @@ public class Benchmark {
 	public static void main(String[] args){		
 		Benchmark benchmark = new Benchmark();
 		int totalTime =300;
-		_numberEdgesTraversed = -1;
+		_numberEdgesTraversed = Integer.MAX_VALUE;
 		if(args.length >= 8){
 		_numberEdgesTraversed = Integer.parseInt(args[7]);
 		}
