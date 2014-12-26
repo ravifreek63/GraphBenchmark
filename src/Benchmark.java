@@ -26,6 +26,7 @@ public class Benchmark {
 		if(args.length >= 8){
 		_numberEdgesTraversed = Integer.parseInt(args[7]);
 		}
+		System.out.println("Total Edges:" + _numberEdgesTraversed);
 		if(args.length >= 7)
 			totalTime = Integer.parseInt(args[6]);
 		int fraction = 1;
@@ -61,6 +62,7 @@ public class Benchmark {
 				System.gc();
 			}
 		}
+		System.exit(-1);
 		Statistics.setNumberThreads(_numberThreads+1);
 		StatsPrinter s = new StatsPrinter(_numberThreads+1, totalTime);
 		// Starting Worker Threads 
