@@ -1,5 +1,6 @@
 package benchmark.graph.util;
-	
+import benchmark.graph.harness.*;	
+
 public class StatsPrinter implements Runnable {
 		private  boolean[] _threadsDone;
 		private  int _numberThreads;
