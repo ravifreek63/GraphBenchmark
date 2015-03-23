@@ -1,5 +1,7 @@
+package benchmark.graph.harness;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
+import benchmark.graph.util.*;
 
 public class Benchmark {
 	private static Graph _graph;
@@ -62,7 +64,6 @@ public class Benchmark {
 				System.gc();
 			}
 		}
-		System.exit(-1);
 		Statistics.setNumberThreads(_numberThreads+1);
 		StatsPrinter s = new StatsPrinter(_numberThreads+1, totalTime);
 		// Starting Worker Threads 

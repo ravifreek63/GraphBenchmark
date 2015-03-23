@@ -1,3 +1,4 @@
+package benchmark.graph.util;
 	
 public class StatsPrinter implements Runnable {
 		private  boolean[] _threadsDone;

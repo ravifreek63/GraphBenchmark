@@ -1,3 +1,4 @@
+package benchmark.graph.util;
 import java.util.ArrayList;
 import java.util.Random;
 

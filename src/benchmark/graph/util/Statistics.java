@@ -1,3 +1,4 @@
+package benchmark.graph.util;
 
 public class Statistics {
 	private static long _graphGenerationTime;
